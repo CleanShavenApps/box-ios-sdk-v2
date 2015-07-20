@@ -6,13 +6,13 @@
 //  Copyright (c) 2013 Box. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
 @class BoxUsersResourceManager;
 @class BoxSerialOAuth2Session;
 @class BoxSerialAPIQueueManager;
 
-@interface BoxUsersResourceManagerTests : SenTestCase
+@interface BoxUsersResourceManagerTests : XCTestCase
 {
     BoxUsersResourceManager *usersManager;
     NSString *APIBaseURL;

@@ -45,7 +45,7 @@
 {
     BoxAPIJSONOperation *operation = [foldersManager folderInfoWithID:folderID requestBuilder:nil success:nil failure:nil];
 
-    STAssertEqualObjects(BoxAPIHTTPMethodGET, operation.APIRequest.HTTPMethod, @"folder info should be a GET request");
+    XCTAssertEqualObjects(BoxAPIHTTPMethodGET, operation.APIRequest.HTTPMethod, @"folder info should be a GET request");
 }
 
 // @see developers.box.com/docs/
@@ -55,7 +55,7 @@
 
     NSString *expectedURLString = [NSString stringWithFormat:@"%@/%@/%@/%@", APIBaseURL, APIVersion, FOLDERS_RESOURCE, folderID];
 
-    STAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"folder info URL should match docs");
+    XCTAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"folder info URL should match docs");
 }
 
 - (void)testThatFolderInfoIncludesQueryStringParametersFromRequestBuilder
@@ -64,7 +64,7 @@
     BoxFoldersRequestBuilder *builder = [[BoxFoldersRequestBuilder alloc] initWithQueryStringParameters:queryParametersDictionary];
     BoxAPIJSONOperation *operation = [foldersManager folderInfoWithID:folderID requestBuilder:builder success:nil failure:nil];
 
-    STAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
+    XCTAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
 }
 
 // GET request should have no body
@@ -74,7 +74,7 @@
     builder.name = @"foobar";
     BoxAPIJSONOperation *operation = [foldersManager folderInfoWithID:folderID requestBuilder:builder success:nil failure:nil];
 
-    STAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
+    XCTAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
 }
 
 - (void)testThatFolderInfoWrapsSuccessBlockInJSONSuccessBlockAndSetsItOnTheOperation
@@ -88,14 +88,14 @@
 
     operation.success(nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"Folder block should be called when the operation's success block is called");
+    XCTAssertTrue(blockCalled, @"Folder block should be called when the operation's success block is called");
 }
 
 - (void)testThatFolderInfoSuccessBlockIsPassedABoxFolder
 {
     BoxFolderBlock successBlock = ^(BoxFolder *folder)
     {
-        STAssertTrue([folder isMemberOfClass:[BoxFolder class]], @"success block should be passed a BoxFolder");
+        XCTAssertTrue([folder isMemberOfClass:[BoxFolder class]], @"success block should be passed a BoxFolder");
     };
     BoxAPIJSONOperation *operation = [foldersManager folderInfoWithID:folderID requestBuilder:nil success:successBlock failure:nil];
 
@@ -113,7 +113,7 @@
 
     operation.failure(nil, nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
+    XCTAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
 }
 
 - (void)testThatFolderInfoEnqueuesOperationInQueueManager
@@ -129,7 +129,7 @@
 - (void)testThatFolderInfoPassesOAuth2SessionToOperation
 {
     BoxAPIJSONOperation *operation = [foldersManager folderInfoWithID:folderID requestBuilder:nil success:nil failure:nil];
-    STAssertEquals(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
+    XCTAssertEqual(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
 }
 
 #pragma mark - Create Folder Tests
@@ -138,7 +138,7 @@
 {
     BoxAPIJSONOperation *operation = [foldersManager createFolderWithRequestBuilder:nil success:nil failure:nil];
 
-    STAssertEqualObjects(BoxAPIHTTPMethodPOST, operation.APIRequest.HTTPMethod, @"create folder should be a POST request");
+    XCTAssertEqualObjects(BoxAPIHTTPMethodPOST, operation.APIRequest.HTTPMethod, @"create folder should be a POST request");
 }
 
 // @see developers.box.com/docs/
@@ -148,7 +148,7 @@
 
     NSString *expectedURLString = [NSString stringWithFormat:@"%@/%@/%@", APIBaseURL, APIVersion, FOLDERS_RESOURCE];
 
-    STAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"create folder URL should match docs");
+    XCTAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"create folder URL should match docs");
 }
 
 - (void)testThatCreateFolderIncludesQueryStringParametersFromRequestBuilder
@@ -157,7 +157,7 @@
     BoxFoldersRequestBuilder *builder = [[BoxFoldersRequestBuilder alloc] initWithQueryStringParameters:queryParametersDictionary];
     BoxAPIJSONOperation *operation = [foldersManager createFolderWithRequestBuilder:builder success:nil failure:nil];
 
-    STAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
+    XCTAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
 }
 
 - (void)testThatCreateFolderDoesIncludeBodyDictionaryFromRequestBuilder
@@ -168,7 +168,7 @@
 
     NSData *expectedData = [NSJSONSerialization dataWithJSONObject:builder.bodyParameters options:0 error:nil];
 
-    STAssertEqualObjects(expectedData, operation.APIRequest.HTTPBody, @"body parameters from builder should be included with the request");
+    XCTAssertEqualObjects(expectedData, operation.APIRequest.HTTPBody, @"body parameters from builder should be included with the request");
 }
 
 - (void)testThatCreateFolderWrapsSuccessBlockInJSONSuccessBlockAndSetsItOnTheOperation
@@ -182,14 +182,14 @@
 
     operation.success(nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"Folder block should be called when the operation's success block is called");
+    XCTAssertTrue(blockCalled, @"Folder block should be called when the operation's success block is called");
 }
 
 - (void)testThatCreateFolderSuccessBlockIsPassedABoxFolder
 {
     BoxFolderBlock successBlock = ^(BoxFolder *folder)
     {
-        STAssertTrue([folder isMemberOfClass:[BoxFolder class]], @"success block should be passed a BoxFolder");
+        XCTAssertTrue([folder isMemberOfClass:[BoxFolder class]], @"success block should be passed a BoxFolder");
     };
     BoxAPIJSONOperation *operation = [foldersManager createFolderWithRequestBuilder:nil success:successBlock failure:nil];
 
@@ -207,7 +207,7 @@
 
     operation.failure(nil, nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
+    XCTAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
 }
 
 - (void)testThatCreateFolderEnqueuesOperationInQueueManager
@@ -223,7 +223,7 @@
 - (void)testThatCreateFolderPassesOAuth2SessionToOperation
 {
     BoxAPIJSONOperation *operation = [foldersManager createFolderWithRequestBuilder:nil success:nil failure:nil];
-    STAssertEquals(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
+    XCTAssertEqual(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
 }
 
 #pragma mark - Folder Items Tests
@@ -232,7 +232,7 @@
 {
     BoxAPIJSONOperation *operation = [foldersManager folderItemsWithID:folderID requestBuilder:nil success:nil failure:nil];
 
-    STAssertEqualObjects(BoxAPIHTTPMethodGET, operation.APIRequest.HTTPMethod, @"folder items should be a GET request");
+    XCTAssertEqualObjects(BoxAPIHTTPMethodGET, operation.APIRequest.HTTPMethod, @"folder items should be a GET request");
 }
 
 // @see developers.box.com/docs/
@@ -242,7 +242,7 @@
 
     NSString *expectedURLString = [NSString stringWithFormat:@"%@/%@/%@/%@/%@", APIBaseURL, APIVersion, FOLDERS_RESOURCE, folderID, FOLDERS_ITEMS];
 
-    STAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"folder items URL should match docs");
+    XCTAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"folder items URL should match docs");
 }
 
 - (void)testThatFolderItemsIncludesQueryStringParametersFromRequestBuilder
@@ -251,7 +251,7 @@
     BoxFoldersRequestBuilder *builder = [[BoxFoldersRequestBuilder alloc] initWithQueryStringParameters:queryParametersDictionary];
     BoxAPIJSONOperation *operation = [foldersManager folderItemsWithID:folderID requestBuilder:builder success:nil failure:nil];
 
-    STAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
+    XCTAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
 }
 
 // GET request should have no body
@@ -261,7 +261,7 @@
     builder.name = @"foobar";
     BoxAPIJSONOperation *operation = [foldersManager folderItemsWithID:folderID requestBuilder:builder success:nil failure:nil];
 
-    STAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
+    XCTAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
 }
 
 - (void)testThatFolderItemsWrapsSuccessBlockInJSONSuccessBlockAndSetsItOnTheOperation
@@ -275,14 +275,14 @@
 
     operation.success(nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"Collection block should be called when the operation's success block is called");
+    XCTAssertTrue(blockCalled, @"Collection block should be called when the operation's success block is called");
 }
 
 - (void)testThatFolderItemsSuccessBlockIsPassedABoxCollection
 {
     BoxCollectionBlock successBlock = ^(BoxCollection *items)
     {
-        STAssertTrue([items isMemberOfClass:[BoxCollection class]], @"success block should be passed a BoxCollection");
+        XCTAssertTrue([items isMemberOfClass:[BoxCollection class]], @"success block should be passed a BoxCollection");
     };
     BoxAPIJSONOperation *operation = [foldersManager folderItemsWithID:folderID requestBuilder:nil success:successBlock failure:nil];
 
@@ -300,7 +300,7 @@
 
     operation.failure(nil, nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
+    XCTAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
 }
 
 - (void)testThatFolderItemsEnqueuesOperationInQueueManager
@@ -316,7 +316,7 @@
 - (void)testThatFolderItemsPassesOAuth2SessionToOperation
 {
     BoxAPIJSONOperation *operation = [foldersManager folderItemsWithID:folderID requestBuilder:nil success:nil failure:nil];
-    STAssertEquals(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
+    XCTAssertEqual(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
 }
 
 #pragma mark - Edit Folder Tests
@@ -325,7 +325,7 @@
 {
     BoxAPIJSONOperation *operation = [foldersManager editFolderWithID:folderID requestBuilder:nil success:nil failure:nil];
 
-    STAssertEqualObjects(BoxAPIHTTPMethodPUT, operation.APIRequest.HTTPMethod, @"edit folder should be a PUT request");
+    XCTAssertEqualObjects(BoxAPIHTTPMethodPUT, operation.APIRequest.HTTPMethod, @"edit folder should be a PUT request");
 }
 
 // @see developers.box.com/docs/
@@ -335,7 +335,7 @@
 
     NSString *expectedURLString = [NSString stringWithFormat:@"%@/%@/%@/%@", APIBaseURL, APIVersion, FOLDERS_RESOURCE, folderID];
 
-    STAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"edit folder URL should match docs");
+    XCTAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"edit folder URL should match docs");
 }
 
 - (void)testThatEditFolderIncludesQueryStringParametersFromRequestBuilder
@@ -344,7 +344,7 @@
     BoxFoldersRequestBuilder *builder = [[BoxFoldersRequestBuilder alloc] initWithQueryStringParameters:queryParametersDictionary];
     BoxAPIJSONOperation *operation = [foldersManager editFolderWithID:folderID requestBuilder:builder success:nil failure:nil];
 
-    STAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
+    XCTAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
 }
 
 - (void)testThatEditFolderDoesIncludeBodyDictionaryFromRequestBuilder
@@ -355,7 +355,7 @@
 
     NSData *expectedData = [NSJSONSerialization dataWithJSONObject:builder.bodyParameters options:0 error:nil];
 
-    STAssertEqualObjects(expectedData, operation.APIRequest.HTTPBody, @"body parameters from builder should be included with the request");
+    XCTAssertEqualObjects(expectedData, operation.APIRequest.HTTPBody, @"body parameters from builder should be included with the request");
 }
 
 - (void)testThatEditFolderWrapsSuccessBlockInJSONSuccessBlockAndSetsItOnTheOperation
@@ -369,14 +369,14 @@
 
     operation.success(nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"Folder block should be called when the operation's success block is called");
+    XCTAssertTrue(blockCalled, @"Folder block should be called when the operation's success block is called");
 }
 
 - (void)testThatEditFolderSuccessBlockIsPassedABoxFolder
 {
     BoxFolderBlock successBlock = ^(BoxFolder *folder)
     {
-        STAssertTrue([folder isMemberOfClass:[BoxFolder class]], @"success block should be passed a BoxFolder");
+        XCTAssertTrue([folder isMemberOfClass:[BoxFolder class]], @"success block should be passed a BoxFolder");
     };
     BoxAPIJSONOperation *operation = [foldersManager editFolderWithID:folderID requestBuilder:nil success:successBlock failure:nil];
 
@@ -394,7 +394,7 @@
 
     operation.failure(nil, nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
+    XCTAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
 }
 
 - (void)testThatEditFolderEnqueuesOperationInQueueManager
@@ -410,7 +410,7 @@
 - (void)testThatEditFolderPassesOAuth2SessionToOperation
 {
     BoxAPIJSONOperation *operation = [foldersManager editFolderWithID:folderID requestBuilder:nil success:nil failure:nil];
-    STAssertEquals(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
+    XCTAssertEqual(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
 }
 
 #pragma mark - Delete Folder Tests
@@ -419,7 +419,7 @@
 {
     BoxAPIJSONOperation *operation = [foldersManager deleteFolderWithID:folderID requestBuilder:nil success:nil failure:nil];
 
-    STAssertEqualObjects(BoxAPIHTTPMethodDELETE, operation.APIRequest.HTTPMethod, @"delete folder should be a DELETE request");
+    XCTAssertEqualObjects(BoxAPIHTTPMethodDELETE, operation.APIRequest.HTTPMethod, @"delete folder should be a DELETE request");
 }
 
 // @see developers.box.com/docs/
@@ -429,7 +429,7 @@
 
     NSString *expectedURLString = [NSString stringWithFormat:@"%@/%@/%@/%@", APIBaseURL, APIVersion, FOLDERS_RESOURCE, folderID];
 
-    STAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"delete folder URL should match docs");
+    XCTAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"delete folder URL should match docs");
 }
 
 - (void)testThatDeleteFolderIncludesQueryStringParametersFromRequestBuilder
@@ -438,7 +438,7 @@
     BoxFoldersRequestBuilder *builder = [[BoxFoldersRequestBuilder alloc] initWithQueryStringParameters:queryParametersDictionary];
     BoxAPIJSONOperation *operation = [foldersManager deleteFolderWithID:folderID requestBuilder:builder success:nil failure:nil];
 
-    STAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
+    XCTAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
 }
 
 - (void)testThatDeleteFolderDoesNotIncludeBodyDictionaryFromRequestBuilder
@@ -447,7 +447,7 @@
     builder.name = @"foobar";
     BoxAPIJSONOperation *operation = [foldersManager deleteFolderWithID:folderID requestBuilder:builder success:nil failure:nil];
 
-    STAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
+    XCTAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
 }
 
 - (void)testThatDeleteFolderWrapsSuccessBlockInJSONSuccessBlockAndSetsItOnTheOperation
@@ -461,7 +461,7 @@
 
     operation.success(nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"Folder block should be called when the operation's success block is called");
+    XCTAssertTrue(blockCalled, @"Folder block should be called when the operation's success block is called");
 }
 
 - (void)testThatDeleteFolderSuccessBlockIsPassedANSStringFolderID
@@ -469,7 +469,7 @@
     NSString *const expectedFolderID = folderID;
     BoxSuccessfulDeleteBlock successBlock = ^(NSString *receivedFolderID)
     {
-        STAssertEqualObjects(expectedFolderID, receivedFolderID, @"success block should recieve folder id of deleted folder");
+        XCTAssertEqualObjects(expectedFolderID, receivedFolderID, @"success block should recieve folder id of deleted folder");
     };
     BoxAPIJSONOperation *operation = [foldersManager deleteFolderWithID:folderID requestBuilder:nil success:successBlock failure:nil];
 
@@ -487,7 +487,7 @@
 
     operation.failure(nil, nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
+    XCTAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
 }
 
 - (void)testThatDeleteFolderEnqueuesOperationInQueueManager
@@ -503,7 +503,7 @@
 - (void)testThatDeleteFolderPassesOAuth2SessionToOperation
 {
     BoxAPIJSONOperation *operation = [foldersManager deleteFolderWithID:folderID requestBuilder:nil success:nil failure:nil];
-    STAssertEquals(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
+    XCTAssertEqual(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
 }
 
 #pragma mark - Copy Folder Tests
@@ -512,7 +512,7 @@
 {
     BoxAPIJSONOperation *operation = [foldersManager copyFolderWithID:folderID requestBuilder:nil success:nil failure:nil];
 
-    STAssertEqualObjects(BoxAPIHTTPMethodPOST, operation.APIRequest.HTTPMethod, @"copy folder should be a POST request");
+    XCTAssertEqualObjects(BoxAPIHTTPMethodPOST, operation.APIRequest.HTTPMethod, @"copy folder should be a POST request");
 }
 
 // @see developers.box.com/docs/
@@ -522,7 +522,7 @@
 
     NSString *expectedURLString = [NSString stringWithFormat:@"%@/%@/%@/%@/%@", APIBaseURL, APIVersion, FOLDERS_RESOURCE, folderID, FOLDERS_COPY];
 
-    STAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"copy folder URL should match docs");
+    XCTAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"copy folder URL should match docs");
 }
 
 - (void)testThatCopyFolderIncludesQueryStringParametersFromRequestBuilder
@@ -531,7 +531,7 @@
     BoxFoldersRequestBuilder *builder = [[BoxFoldersRequestBuilder alloc] initWithQueryStringParameters:queryParametersDictionary];
     BoxAPIJSONOperation *operation = [foldersManager copyFolderWithID:folderID requestBuilder:builder success:nil failure:nil];
 
-    STAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
+    XCTAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
 }
 
 - (void)testThatCopyFolderDoesIncludeBodyDictionaryFromRequestBuilder
@@ -542,7 +542,7 @@
 
     NSData *expectedData = [NSJSONSerialization dataWithJSONObject:builder.bodyParameters options:0 error:nil];
 
-    STAssertEqualObjects(expectedData, operation.APIRequest.HTTPBody, @"body parameters from builder should be included with the request");
+    XCTAssertEqualObjects(expectedData, operation.APIRequest.HTTPBody, @"body parameters from builder should be included with the request");
 }
 
 - (void)testThatCopyFolderWrapsSuccessBlockInJSONSuccessBlockAndSetsItOnTheOperation
@@ -556,14 +556,14 @@
 
     operation.success(nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"Folder block should be called when the operation's success block is called");
+    XCTAssertTrue(blockCalled, @"Folder block should be called when the operation's success block is called");
 }
 
 - (void)testThatCopyFolderSuccessBlockIsPassedABoxFolder
 {
     BoxFolderBlock successBlock = ^(BoxFolder *folder)
     {
-        STAssertTrue([folder isMemberOfClass:[BoxFolder class]], @"success block should be passed a BoxFolder");
+        XCTAssertTrue([folder isMemberOfClass:[BoxFolder class]], @"success block should be passed a BoxFolder");
     };
     BoxAPIJSONOperation *operation = [foldersManager copyFolderWithID:folderID requestBuilder:nil success:successBlock failure:nil];
 
@@ -581,7 +581,7 @@
 
     operation.failure(nil, nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
+    XCTAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
 }
 
 - (void)testThatCopyFolderEnqueuesOperationInQueueManager
@@ -597,7 +597,7 @@
 - (void)testThatCopyFolderPassesOAuth2SessionToOperation
 {
     BoxAPIJSONOperation *operation = [foldersManager copyFolderWithID:folderID requestBuilder:nil success:nil failure:nil];
-    STAssertEquals(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
+    XCTAssertEqual(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
 }
 
 #pragma mark - Folder Info from Trash Tests
@@ -606,7 +606,7 @@
 {
     BoxAPIJSONOperation *operation = [foldersManager folderInfoFromTrashWithID:folderID requestBuilder:nil success:nil failure:nil];
 
-    STAssertEqualObjects(BoxAPIHTTPMethodGET, operation.APIRequest.HTTPMethod, @"folder info from trash should be a GET request");
+    XCTAssertEqualObjects(BoxAPIHTTPMethodGET, operation.APIRequest.HTTPMethod, @"folder info from trash should be a GET request");
 }
 
 // @see developers.box.com/docs/
@@ -616,7 +616,7 @@
 
     NSString *expectedURLString = [NSString stringWithFormat:@"%@/%@/%@/%@/%@", APIBaseURL, APIVersion, FOLDERS_RESOURCE, folderID, FOLDERS_TRASH];
 
-    STAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"folder info from trash URL should match docs");
+    XCTAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"folder info from trash URL should match docs");
 }
 
 - (void)testThatFolderInfoFromTrashIncludesQueryStringParametersFromRequestBuilder
@@ -625,7 +625,7 @@
     BoxFoldersRequestBuilder *builder = [[BoxFoldersRequestBuilder alloc] initWithQueryStringParameters:queryParametersDictionary];
     BoxAPIJSONOperation *operation = [foldersManager folderInfoFromTrashWithID:folderID requestBuilder:builder success:nil failure:nil];
 
-    STAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
+    XCTAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
 }
 
 // GET request should have no body
@@ -635,7 +635,7 @@
     builder.name = @"foobar";
     BoxAPIJSONOperation *operation = [foldersManager folderInfoFromTrashWithID:folderID requestBuilder:builder success:nil failure:nil];
 
-    STAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
+    XCTAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
 }
 
 - (void)testThatFolderInfoFromTrashWrapsSuccessBlockInJSONSuccessBlockAndSetsItOnTheOperation
@@ -649,14 +649,14 @@
 
     operation.success(nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"Folder block should be called when the operation's success block is called");
+    XCTAssertTrue(blockCalled, @"Folder block should be called when the operation's success block is called");
 }
 
 - (void)testThatFolderInfoFromTrashSuccessBlockIsPassedABoxFolder
 {
     BoxFolderBlock successBlock = ^(BoxFolder *folder)
     {
-        STAssertTrue([folder isMemberOfClass:[BoxFolder class]], @"success block should be passed a BoxFolder");
+        XCTAssertTrue([folder isMemberOfClass:[BoxFolder class]], @"success block should be passed a BoxFolder");
     };
     BoxAPIJSONOperation *operation = [foldersManager folderInfoFromTrashWithID:folderID requestBuilder:nil success:successBlock failure:nil];
 
@@ -674,7 +674,7 @@
 
     operation.failure(nil, nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
+    XCTAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
 }
 
 - (void)testThatFolderInfoFromTrashEnqueuesOperationInQueueManager
@@ -690,7 +690,7 @@
 - (void)testThatFolderInfoFromTrashPassesOAuth2SessionToOperation
 {
     BoxAPIJSONOperation *operation = [foldersManager folderInfoFromTrashWithID:folderID requestBuilder:nil success:nil failure:nil];
-    STAssertEquals(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
+    XCTAssertEqual(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
 }
 
 #pragma mark - Create Folder Tests
@@ -699,7 +699,7 @@
 {
     BoxAPIJSONOperation *operation = [foldersManager restoreFolderFromTrashWithID:folderID requestBuilder:nil success:nil failure:nil];
 
-    STAssertEqualObjects(BoxAPIHTTPMethodPOST, operation.APIRequest.HTTPMethod, @"restore folder from trash should be a POST request");
+    XCTAssertEqualObjects(BoxAPIHTTPMethodPOST, operation.APIRequest.HTTPMethod, @"restore folder from trash should be a POST request");
 }
 
 // @see developers.box.com/docs/
@@ -709,7 +709,7 @@
 
     NSString *expectedURLString = [NSString stringWithFormat:@"%@/%@/%@/%@", APIBaseURL, APIVersion, FOLDERS_RESOURCE, folderID];
 
-    STAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"restore folder from trash URL should match docs");
+    XCTAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"restore folder from trash URL should match docs");
 }
 
 - (void)testThatRestoreFolderFromTrashIncludesQueryStringParametersFromRequestBuilder
@@ -718,7 +718,7 @@
     BoxFoldersRequestBuilder *builder = [[BoxFoldersRequestBuilder alloc] initWithQueryStringParameters:queryParametersDictionary];
     BoxAPIJSONOperation *operation = [foldersManager restoreFolderFromTrashWithID:folderID requestBuilder:builder success:nil failure:nil];
 
-    STAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
+    XCTAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
 }
 
 - (void)testThatRestoreFolderFromTrashDoesIncludeBodyDictionaryFromRequestBuilder
@@ -729,7 +729,7 @@
 
     NSData *expectedData = [NSJSONSerialization dataWithJSONObject:builder.bodyParameters options:0 error:nil];
 
-    STAssertEqualObjects(expectedData, operation.APIRequest.HTTPBody, @"body parameters from builder should be included with the request");
+    XCTAssertEqualObjects(expectedData, operation.APIRequest.HTTPBody, @"body parameters from builder should be included with the request");
 }
 
 - (void)testThatRestoreFolderFromTrashWrapsSuccessBlockInJSONSuccessBlockAndSetsItOnTheOperation
@@ -743,14 +743,14 @@
 
     operation.success(nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"Folder block should be called when the operation's success block is called");
+    XCTAssertTrue(blockCalled, @"Folder block should be called when the operation's success block is called");
 }
 
 - (void)testThatRestoreFolderFromTrashSuccessBlockIsPassedABoxFolder
 {
     BoxFolderBlock successBlock = ^(BoxFolder *folder)
     {
-        STAssertTrue([folder isMemberOfClass:[BoxFolder class]], @"success block should be passed a BoxFolder");
+        XCTAssertTrue([folder isMemberOfClass:[BoxFolder class]], @"success block should be passed a BoxFolder");
     };
     BoxAPIJSONOperation *operation = [foldersManager restoreFolderFromTrashWithID:folderID requestBuilder:nil success:successBlock failure:nil];
 
@@ -768,7 +768,7 @@
 
     operation.failure(nil, nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
+    XCTAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
 }
 
 - (void)testThatRestoreFolderFromTrashEnqueuesOperationInQueueManager
@@ -784,7 +784,7 @@
 - (void)testThatRestoreFolderFromTrashPassesOAuth2SessionToOperation
 {
     BoxAPIJSONOperation *operation = [foldersManager restoreFolderFromTrashWithID:folderID requestBuilder:nil success:nil failure:nil];
-    STAssertEquals(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
+    XCTAssertEqual(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
 }
 
 #pragma mark - Delete Folder from Trash Tests
@@ -793,7 +793,7 @@
 {
     BoxAPIJSONOperation *operation = [foldersManager deleteFolderFromTrashWithID:folderID requestBuilder:nil success:nil failure:nil];
 
-    STAssertEqualObjects(BoxAPIHTTPMethodDELETE, operation.APIRequest.HTTPMethod, @"delete folder from trash should be a DELETE request");
+    XCTAssertEqualObjects(BoxAPIHTTPMethodDELETE, operation.APIRequest.HTTPMethod, @"delete folder from trash should be a DELETE request");
 }
 
 // @see developers.box.com/docs/
@@ -803,7 +803,7 @@
 
     NSString *expectedURLString = [NSString stringWithFormat:@"%@/%@/%@/%@/%@", APIBaseURL, APIVersion, FOLDERS_RESOURCE, folderID, FOLDERS_TRASH];
 
-    STAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"delete folder from trash URL should match docs");
+    XCTAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"delete folder from trash URL should match docs");
 }
 
 - (void)testThatDeleteFolderFromTrashIncludesQueryStringParametersFromRequestBuilder
@@ -812,7 +812,7 @@
     BoxFoldersRequestBuilder *builder = [[BoxFoldersRequestBuilder alloc] initWithQueryStringParameters:queryParametersDictionary];
     BoxAPIJSONOperation *operation = [foldersManager deleteFolderFromTrashWithID:folderID requestBuilder:builder success:nil failure:nil];
 
-    STAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
+    XCTAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
 }
 
 - (void)testThatDeleteFolderFromTrashDoesNotIncludeBodyDictionaryFromRequestBuilder
@@ -821,7 +821,7 @@
     builder.name = @"foobar";
     BoxAPIJSONOperation *operation = [foldersManager deleteFolderFromTrashWithID:folderID requestBuilder:builder success:nil failure:nil];
 
-    STAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
+    XCTAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
 }
 
 - (void)testThatDeleteFolderFromTrashWrapsSuccessBlockInJSONSuccessBlockAndSetsItOnTheOperation
@@ -835,7 +835,7 @@
 
     operation.success(nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"Folder block should be called when the operation's success block is called");
+    XCTAssertTrue(blockCalled, @"Folder block should be called when the operation's success block is called");
 }
 
 - (void)testThatDeleteFolderFromTrashSuccessBlockIsPassedANSStringFolderID
@@ -843,7 +843,7 @@
     NSString *const expectedFolderID = folderID;
     BoxSuccessfulDeleteBlock successBlock = ^(NSString *receivedFolderID)
     {
-        STAssertEqualObjects(expectedFolderID, receivedFolderID, @"success block should recieve folder id of deleted folder");
+        XCTAssertEqualObjects(expectedFolderID, receivedFolderID, @"success block should recieve folder id of deleted folder");
     };
     BoxAPIJSONOperation *operation = [foldersManager deleteFolderFromTrashWithID:folderID requestBuilder:nil success:successBlock failure:nil];
 
@@ -861,7 +861,7 @@
 
     operation.failure(nil, nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
+    XCTAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
 }
 
 - (void)testThatDeleteFolderFromTrashEnqueuesOperationInQueueManager
@@ -877,7 +877,7 @@
 - (void)testThatDeleteFolderFromTrashPassesOAuth2SessionToOperation
 {
     BoxAPIJSONOperation *operation = [foldersManager deleteFolderFromTrashWithID:folderID requestBuilder:nil success:nil failure:nil];
-    STAssertEquals(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
+    XCTAssertEqual(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
 }
 
 @end

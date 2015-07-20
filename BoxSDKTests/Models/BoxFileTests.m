@@ -31,12 +31,12 @@
 
 - (void)testThatSHA1IsReturnedFromFolderWhenSetInFullFormat
 {
-    STAssertEqualObjects(@"deadbeefdeadbeef", file.SHA1, @"expected sha1 did not match actual");
+    XCTAssertEqualObjects(@"deadbeefdeadbeef", file.SHA1, @"expected sha1 did not match actual");
 }
 
 - (void)testThatSHA1IsReturnedAsNilIfNotSetInMiniFormat
 {
-    STAssertNil(miniFile.SHA1, @"expected sha1 is nil");
+    XCTAssertNil(miniFile.SHA1, @"expected sha1 is nil");
 }
 
 - (void)testThatSHA1IsReturnedAsNilWhenSetToGarbageValue

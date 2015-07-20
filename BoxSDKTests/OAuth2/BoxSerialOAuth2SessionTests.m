@@ -266,7 +266,7 @@
     NSString *expectedURLStringWithoutQueryParams = [NSString stringWithFormat:@"%@/oauth2/authorize", BoxAPIBaseURL];
 
     NSString *urlStringWithoutQueryParams = (NSString *)[[[actualURL absoluteString] componentsSeparatedByString:@"?"] objectAtIndex:0];
-    STAssertEqualObjects(expectedURLStringWithoutQueryParams, urlStringWithoutQueryParams, @"Authorize URL did not match expected");
+    XCTAssertEqualObjects(expectedURLStringWithoutQueryParams, urlStringWithoutQueryParams, @"Authorize URL did not match expected");
 }
 
 // @see developers.box.com/oauth/
@@ -282,7 +282,7 @@
                                                @"state" : @"ok",
                                                @"redirect_uri" : [NSString box_stringWithString:redirectURLString URLEncoded:YES], };
 
-    STAssertEqualObjects(expectedQueryDictionary, [actualURL box_queryDictionary], @"Expected query params did not match actual authorize query params");
+    XCTAssertEqualObjects(expectedQueryDictionary, [actualURL box_queryDictionary], @"Expected query params did not match actual authorize query params");
 }
 
 
@@ -294,7 +294,7 @@
     NSURL *expectedGrantTokensURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/oauth2/token", BoxAPIBaseURL]];
     NSURL *actualGrantTokensURL = [OAuth2 grantTokensURL];
 
-    STAssertEqualObjects(expectedGrantTokensURL, actualGrantTokensURL, @"Grant tokens URL did not match expected");
+    XCTAssertEqualObjects(expectedGrantTokensURL, actualGrantTokensURL, @"Grant tokens URL did not match expected");
 }
 
 - (void)testThatSDKRedirectURIStringIsConsistent
@@ -306,7 +306,7 @@
 
     NSString *actualRedirectURIString = [OAuth2 redirectURIString];
 
-    STAssertEqualObjects(expectedRedirectURIString, actualRedirectURIString, @"SDK redirect URI does not match expected");
+    XCTAssertEqualObjects(expectedRedirectURIString, actualRedirectURIString, @"SDK redirect URI does not match expected");
 
     // test with a different client ID
     clientID = @"anotherclientID";
@@ -316,7 +316,7 @@
 
     actualRedirectURIString = [OAuth2 redirectURIString];
 
-    STAssertEqualObjects(expectedRedirectURIString, actualRedirectURIString, @"SDK redirect URI does not match expected");
+    XCTAssertEqualObjects(expectedRedirectURIString, actualRedirectURIString, @"SDK redirect URI does not match expected");
 }
 
 @end

@@ -17,7 +17,7 @@
     NSURL *urlWithNoQueryStringParameters = [NSURL URLWithString:@"https://dick.in.a.box"];
     NSDictionary *actualQueryDictionary = [urlWithNoQueryStringParameters box_queryDictionary];
 
-    STAssertTrue(0 == [actualQueryDictionary count], @"Query dictionary should be empty");
+    XCTAssertTrue(0 == [actualQueryDictionary count], @"Query dictionary should be empty");
 }
 
 - (void)testThatURLWithNoQueryStringReturnsEmptyDictionary
@@ -25,7 +25,7 @@
     NSURL *urlWithNoQueryStringParameters = [NSURL URLWithString:@"https://dick.in.a.box/index.php"];
     NSDictionary *actualQueryDictionary = [urlWithNoQueryStringParameters box_queryDictionary];
 
-    STAssertTrue(0 == [actualQueryDictionary count], @"Query dictionary should be empty");
+    XCTAssertTrue(0 == [actualQueryDictionary count], @"Query dictionary should be empty");
 }
 
 - (void)testThatURLWithOneQueryStringParameterReturnsCorrectDictionary
@@ -34,7 +34,7 @@
     NSDictionary *expectedDictionary = [NSDictionary dictionaryWithObjectsAndKeys:@"zone", @"danger", nil];
     NSDictionary *actualQueryDictionary = [urlWithOneQueryStringParameter box_queryDictionary];
 
-    STAssertEqualObjects(expectedDictionary, actualQueryDictionary, @"Expected dictionary differs from actual");
+    XCTAssertEqualObjects(expectedDictionary, actualQueryDictionary, @"Expected dictionary differs from actual");
 }
 
 - (void)testThatURLWithMultipleQueryStringParametersReturnsCorrectDictionary
@@ -43,7 +43,7 @@
     NSDictionary *expectedDictionary = [NSDictionary dictionaryWithObjectsAndKeys:@"zone", @"danger", @"gun", @"top", @"awesome", @"maverick", nil];
     NSDictionary *actualQueryDictionary = [urlWithOneQueryStringParameter box_queryDictionary];
 
-    STAssertEqualObjects(expectedDictionary, actualQueryDictionary, @"Expected dictionary differs from actual");
+    XCTAssertEqualObjects(expectedDictionary, actualQueryDictionary, @"Expected dictionary differs from actual");
 }
 
 @end

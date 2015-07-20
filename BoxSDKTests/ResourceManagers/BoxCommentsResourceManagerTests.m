@@ -43,7 +43,7 @@
 {
     BoxAPIJSONOperation *operation = [commentsManager commentInfoWithID:commentID requestBuilder:nil success:nil failure:nil];
     
-    STAssertEqualObjects(BoxAPIHTTPMethodGET, operation.APIRequest.HTTPMethod, @"comment info should be a GET request");
+    XCTAssertEqualObjects(BoxAPIHTTPMethodGET, operation.APIRequest.HTTPMethod, @"comment info should be a GET request");
 }
 
 // @see developers.box.com/docs/
@@ -53,7 +53,7 @@
     
     NSString *expectedURLString = [NSString stringWithFormat:@"%@/%@/%@/%@", APIBaseURL, APIVersion, COMMENTS_RESOURCE, commentID];
     
-    STAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"comment info URL should match docs");
+    XCTAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"comment info URL should match docs");
 }
 
 - (void)testThatCommentInfoIncludesQueryStringParametersFromRequestBuilder
@@ -62,7 +62,7 @@
     BoxCommentsRequestBuilder *builder = [[BoxCommentsRequestBuilder alloc] initWithQueryStringParameters:queryParametersDictionary];
     BoxAPIJSONOperation *operation = [commentsManager commentInfoWithID:commentID requestBuilder:builder success:nil failure:nil];
     
-    STAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
+    XCTAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
 }
 
 // GET request should have no body
@@ -72,7 +72,7 @@
     builder.message = @"foobar";
     BoxAPIJSONOperation *operation = [commentsManager commentInfoWithID:commentID requestBuilder:builder success:nil failure:nil];
     
-    STAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
+    XCTAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
 }
 
 - (void)testThatCommentInfoWrapsSuccessBlockInJSONSuccessBlockAndSetsItOnTheOperation
@@ -86,14 +86,14 @@
     
     operation.success(nil, nil, nil);
     
-    STAssertTrue(blockCalled, @"Comment block should be called when the operation's success block is called");
+    XCTAssertTrue(blockCalled, @"Comment block should be called when the operation's success block is called");
 }
 
 - (void)testThatCommentInfoSuccessBlockIsPassedABoxComment
 {
     BoxCommentBlock successBlock = ^(BoxComment *comment)
     {
-        STAssertTrue([comment isMemberOfClass:[BoxComment class]], @"success block should be passed a BoxComment");
+        XCTAssertTrue([comment isMemberOfClass:[BoxComment class]], @"success block should be passed a BoxComment");
     };
     BoxAPIJSONOperation *operation = [commentsManager commentInfoWithID:commentID requestBuilder:nil success:successBlock failure:nil];
     
@@ -111,7 +111,7 @@
     
     operation.failure(nil, nil, nil, nil);
     
-    STAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
+    XCTAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
 }
 
 - (void)testThatCommentInfoEnqueuesOperationInQueueManager
@@ -127,7 +127,7 @@
 - (void)testThatCommentInfoPassesOAuth2SessionToOperation
 {
     BoxAPIJSONOperation *operation = [commentsManager commentInfoWithID:commentID requestBuilder:nil success:nil failure:nil];
-    STAssertEquals(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the comments manager");
+    XCTAssertEqual(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the comments manager");
 }
 
 #pragma mark - Create Comment Tests
@@ -136,7 +136,7 @@
 {
     BoxAPIJSONOperation *operation = [commentsManager createCommentWithRequestBuilder:nil success:nil failure:nil];
     
-    STAssertEqualObjects(BoxAPIHTTPMethodPOST, operation.APIRequest.HTTPMethod, @"create comment should be a POST request");
+    XCTAssertEqualObjects(BoxAPIHTTPMethodPOST, operation.APIRequest.HTTPMethod, @"create comment should be a POST request");
 }
 
 // @see developers.box.com/docs/
@@ -146,7 +146,7 @@
     
     NSString *expectedURLString = [NSString stringWithFormat:@"%@/%@/%@", APIBaseURL, APIVersion, COMMENTS_RESOURCE];
     
-    STAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"create comment URL should match docs");
+    XCTAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"create comment URL should match docs");
 }
 
 - (void)testThatCreateCommentIncludesQueryStringParametersFromRequestBuilder
@@ -155,7 +155,7 @@
     BoxCommentsRequestBuilder *builder = [[BoxCommentsRequestBuilder alloc] initWithQueryStringParameters:queryParametersDictionary];
     BoxAPIJSONOperation *operation = [commentsManager createCommentWithRequestBuilder:builder success:nil failure:nil];
     
-    STAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
+    XCTAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
 }
 
 - (void)testThatCreateCommentDoesIncludeBodyDictionaryFromRequestBuilder
@@ -166,7 +166,7 @@
     
     NSData *expectedData = [NSJSONSerialization dataWithJSONObject:builder.bodyParameters options:0 error:nil];
     
-    STAssertEqualObjects(expectedData, operation.APIRequest.HTTPBody, @"body parameters from builder should be included with the request");
+    XCTAssertEqualObjects(expectedData, operation.APIRequest.HTTPBody, @"body parameters from builder should be included with the request");
 }
 
 - (void)testThatCreateCommentWrapsSuccessBlockInJSONSuccessBlockAndSetsItOnTheOperation
@@ -180,14 +180,14 @@
     
     operation.success(nil, nil, nil);
     
-    STAssertTrue(blockCalled, @"Comment block should be called when the operation's success block is called");
+    XCTAssertTrue(blockCalled, @"Comment block should be called when the operation's success block is called");
 }
 
 - (void)testThatCreateCommentSuccessBlockIsPassedABoxComment
 {
     BoxCommentBlock successBlock = ^(BoxComment *comment)
     {
-        STAssertTrue([comment isMemberOfClass:[BoxComment class]], @"success block should be passed a BoxComment");
+        XCTAssertTrue([comment isMemberOfClass:[BoxComment class]], @"success block should be passed a BoxComment");
     };
     BoxAPIJSONOperation *operation = [commentsManager createCommentWithRequestBuilder:nil success:successBlock failure:nil];
     
@@ -205,7 +205,7 @@
     
     operation.failure(nil, nil, nil, nil);
     
-    STAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
+    XCTAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
 }
 
 - (void)testThatCreateCommentEnqueuesOperationInQueueManager
@@ -221,7 +221,7 @@
 - (void)testThatCreateCommentPassesOAuth2SessionToOperation
 {
     BoxAPIJSONOperation *operation = [commentsManager createCommentWithRequestBuilder:nil success:nil failure:nil];
-    STAssertEquals(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the comments manager");
+    XCTAssertEqual(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the comments manager");
 }
 
 #pragma mark - Edit Comment Tests
@@ -230,7 +230,7 @@
 {
     BoxAPIJSONOperation *operation = [commentsManager editCommentWithID:commentID requestBuilder:nil success:nil failure:nil];
     
-    STAssertEqualObjects(BoxAPIHTTPMethodPUT, operation.APIRequest.HTTPMethod, @"edit comment should be a PUT request");
+    XCTAssertEqualObjects(BoxAPIHTTPMethodPUT, operation.APIRequest.HTTPMethod, @"edit comment should be a PUT request");
 }
 
 // @see developers.box.com/docs/
@@ -240,7 +240,7 @@
     
     NSString *expectedURLString = [NSString stringWithFormat:@"%@/%@/%@/%@", APIBaseURL, APIVersion, COMMENTS_RESOURCE, commentID];
     
-    STAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"edit comment URL should match docs");
+    XCTAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"edit comment URL should match docs");
 }
 
 - (void)testThatEditCommentIncludesQueryStringParametersFromRequestBuilder
@@ -249,7 +249,7 @@
     BoxCommentsRequestBuilder *builder = [[BoxCommentsRequestBuilder alloc] initWithQueryStringParameters:queryParametersDictionary];
     BoxAPIJSONOperation *operation = [commentsManager editCommentWithID:commentID requestBuilder:builder success:nil failure:nil];
     
-    STAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
+    XCTAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
 }
 
 - (void)testThatEditCommentDoesIncludeBodyDictionaryFromRequestBuilder
@@ -260,7 +260,7 @@
     
     NSData *expectedData = [NSJSONSerialization dataWithJSONObject:builder.bodyParameters options:0 error:nil];
     
-    STAssertEqualObjects(expectedData, operation.APIRequest.HTTPBody, @"body parameters from builder should be included with the request");
+    XCTAssertEqualObjects(expectedData, operation.APIRequest.HTTPBody, @"body parameters from builder should be included with the request");
 }
 
 - (void)testThatEditCommentWrapsSuccessBlockInJSONSuccessBlockAndSetsItOnTheOperation
@@ -274,14 +274,14 @@
     
     operation.success(nil, nil, nil);
     
-    STAssertTrue(blockCalled, @"Comment block should be called when the operation's success block is called");
+    XCTAssertTrue(blockCalled, @"Comment block should be called when the operation's success block is called");
 }
 
 - (void)testThatEditCommentSuccessBlockIsPassedABoxComment
 {
     BoxCommentBlock successBlock = ^(BoxComment *comment)
     {
-        STAssertTrue([comment isMemberOfClass:[BoxComment class]], @"success block should be passed a BoxComment");
+        XCTAssertTrue([comment isMemberOfClass:[BoxComment class]], @"success block should be passed a BoxComment");
     };
     BoxAPIJSONOperation *operation = [commentsManager editCommentWithID:commentID requestBuilder:nil success:successBlock failure:nil];
     
@@ -299,7 +299,7 @@
     
     operation.failure(nil, nil, nil, nil);
     
-    STAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
+    XCTAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
 }
 
 - (void)testThatEditCommentEnqueuesOperationInQueueManager
@@ -315,7 +315,7 @@
 - (void)testThatEditCommentPassesOAuth2SessionToOperation
 {
     BoxAPIJSONOperation *operation = [commentsManager editCommentWithID:commentID requestBuilder:nil success:nil failure:nil];
-    STAssertEquals(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the comments manager");
+    XCTAssertEqual(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the comments manager");
 }
 
 #pragma mark - Delete Comment Tests
@@ -324,7 +324,7 @@
 {
     BoxAPIJSONOperation *operation = [commentsManager deleteCommentWithID:commentID requestBuilder:nil success:nil failure:nil];
     
-    STAssertEqualObjects(BoxAPIHTTPMethodDELETE, operation.APIRequest.HTTPMethod, @"delete comment should be a DELETE request");
+    XCTAssertEqualObjects(BoxAPIHTTPMethodDELETE, operation.APIRequest.HTTPMethod, @"delete comment should be a DELETE request");
 }
 
 // @see developers.box.com/docs/
@@ -334,7 +334,7 @@
     
     NSString *expectedURLString = [NSString stringWithFormat:@"%@/%@/%@/%@", APIBaseURL, APIVersion, COMMENTS_RESOURCE, commentID];
     
-    STAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"delete comment URL should match docs");
+    XCTAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"delete comment URL should match docs");
 }
 
 - (void)testThatDeleteCommentIncludesQueryStringParametersFromRequestBuilder
@@ -343,7 +343,7 @@
     BoxCommentsRequestBuilder *builder = [[BoxCommentsRequestBuilder alloc] initWithQueryStringParameters:queryParametersDictionary];
     BoxAPIJSONOperation *operation = [commentsManager deleteCommentWithID:commentID requestBuilder:builder success:nil failure:nil];
     
-    STAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
+    XCTAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
 }
 
 - (void)testThatDeleteCommentDoesNotIncludeBodyDictionaryFromRequestBuilder
@@ -352,7 +352,7 @@
     builder.message = @"foobar";
     BoxAPIJSONOperation *operation = [commentsManager deleteCommentWithID:commentID requestBuilder:builder success:nil failure:nil];
     
-    STAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
+    XCTAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
 }
 
 - (void)testThatDeleteCommentWrapsSuccessBlockInJSONSuccessBlockAndSetsItOnTheOperation
@@ -366,7 +366,7 @@
     
     operation.success(nil, nil, nil);
     
-    STAssertTrue(blockCalled, @"Comment block should be called when the operation's success block is called");
+    XCTAssertTrue(blockCalled, @"Comment block should be called when the operation's success block is called");
 }
 
 - (void)testThatDeleteCommentSuccessBlockIsPassedANSStringcommentID
@@ -374,7 +374,7 @@
     NSString *const expectedcommentID = commentID;
     BoxSuccessfulDeleteBlock successBlock = ^(NSString *receivedcommentID)
     {
-        STAssertEqualObjects(expectedcommentID, receivedcommentID, @"success block should recieve comment id of deleted comment");
+        XCTAssertEqualObjects(expectedcommentID, receivedcommentID, @"success block should recieve comment id of deleted comment");
     };
     BoxAPIJSONOperation *operation = [commentsManager deleteCommentWithID:commentID requestBuilder:nil success:successBlock failure:nil];
     
@@ -392,7 +392,7 @@
     
     operation.failure(nil, nil, nil, nil);
     
-    STAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
+    XCTAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
 }
 
 - (void)testThatDeleteCommentEnqueuesOperationInQueueManager
@@ -408,7 +408,7 @@
 - (void)testThatDeleteCommentPassesOAuth2SessionToOperation
 {
     BoxAPIJSONOperation *operation = [commentsManager deleteCommentWithID:commentID requestBuilder:nil success:nil failure:nil];
-    STAssertEquals(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the comments manager");
+    XCTAssertEqual(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the comments manager");
 }
 
 @end

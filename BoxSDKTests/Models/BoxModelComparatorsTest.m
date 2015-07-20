@@ -25,7 +25,7 @@
     BoxFolder *folder = [[BoxFolder alloc] initWithResponseJSON:@{BoxAPIObjectKeyType : BoxAPIItemTypeFolder, BoxAPIObjectKeyID : @"12345"} mini:YES];
 
     NSComparisonResult result = [file compare:folder usingComparator:[BoxModelComparators modelByTypeAndID]];
-    STAssertEquals(NSOrderedAscending, result, @"Expected order: file,folder");
+    XCTAssertEqual(NSOrderedAscending, result, @"Expected order: file,folder");
 }
 
 - (void)testThatBoxFolderSucceedsBoxFile
@@ -34,7 +34,7 @@
     BoxFolder *folder = [[BoxFolder alloc] initWithResponseJSON:@{BoxAPIObjectKeyType : BoxAPIItemTypeFolder, BoxAPIObjectKeyID : @"12345"} mini:YES];
 
     NSComparisonResult result = [folder compare:file usingComparator:[BoxModelComparators modelByTypeAndID]];
-    STAssertEquals(NSOrderedDescending, result, @"Expected order: file,folder");
+    XCTAssertEqual(NSOrderedDescending, result, @"Expected order: file,folder");
 }
 
 - (void)testThatBoxFilePreceedsBoxWebLink
@@ -43,7 +43,7 @@
     BoxWebLink *weblink = [[BoxWebLink alloc] initWithResponseJSON:@{BoxAPIObjectKeyType : BoxAPIItemTypeWebLink, BoxAPIObjectKeyID : @"12345"} mini:YES];
 
     NSComparisonResult result = [file compare:weblink usingComparator:[BoxModelComparators modelByTypeAndID]];
-    STAssertEquals(NSOrderedAscending, result, @"Expected order: file,weblink");
+    XCTAssertEqual(NSOrderedAscending, result, @"Expected order: file,weblink");
 }
 
 - (void)testThatBoxWebLinkSucceedsBoxFile
@@ -52,7 +52,7 @@
     BoxWebLink *weblink = [[BoxWebLink alloc] initWithResponseJSON:@{BoxAPIObjectKeyType : BoxAPIItemTypeWebLink, BoxAPIObjectKeyID : @"12345"} mini:YES];
 
     NSComparisonResult result = [weblink compare:file usingComparator:[BoxModelComparators modelByTypeAndID]];
-    STAssertEquals(NSOrderedDescending, result, @"Expected order: file,weblink");
+    XCTAssertEqual(NSOrderedDescending, result, @"Expected order: file,weblink");
 }
 
 - (void)testThatBoxFolderPreceedsBoxWebLink
@@ -61,7 +61,7 @@
     BoxWebLink *weblink = [[BoxWebLink alloc] initWithResponseJSON:@{BoxAPIObjectKeyType : BoxAPIItemTypeWebLink, BoxAPIObjectKeyID : @"12345"} mini:YES];
 
     NSComparisonResult result = [folder compare:weblink usingComparator:[BoxModelComparators modelByTypeAndID]];
-    STAssertEquals(NSOrderedAscending, result, @"Expected order: folder,weblink");
+    XCTAssertEqual(NSOrderedAscending, result, @"Expected order: folder,weblink");
 }
 
 - (void)testThatBoxWebLinkSucceedsBoxFolder
@@ -70,7 +70,7 @@
     BoxWebLink *weblink = [[BoxWebLink alloc] initWithResponseJSON:@{BoxAPIObjectKeyType : BoxAPIItemTypeWebLink, BoxAPIObjectKeyID : @"12345"} mini:YES];
 
     NSComparisonResult result = [weblink compare:folder usingComparator:[BoxModelComparators modelByTypeAndID]];
-    STAssertEquals(NSOrderedDescending, result, @"Expected order: folder,weblink");
+    XCTAssertEqual(NSOrderedDescending, result, @"Expected order: folder,weblink");
 }
 
 - (void)testThatBoxFolderWithID99PreceedsBoxFolderWithID123
@@ -79,7 +79,7 @@
     BoxFolder *folder2 = [[BoxFolder alloc] initWithResponseJSON:@{BoxAPIObjectKeyType : BoxAPIItemTypeFolder, BoxAPIObjectKeyID : @"123"} mini:YES];
 
     NSComparisonResult result = [folder1 compare:folder2 usingComparator:[BoxModelComparators modelByTypeAndID]];
-    STAssertEquals(NSOrderedAscending, result, @"Expected order: folder1,folder2");
+    XCTAssertEqual(NSOrderedAscending, result, @"Expected order: folder1,folder2");
 }
 
 - (void)testThatBoxFolderWithID123SucceedsBoxFolderWithID999
@@ -88,7 +88,7 @@
     BoxFolder *folder2 = [[BoxFolder alloc] initWithResponseJSON:@{BoxAPIObjectKeyType : BoxAPIItemTypeFolder, BoxAPIObjectKeyID : @"123"} mini:YES];
 
     NSComparisonResult result = [folder2 compare:folder1 usingComparator:[BoxModelComparators modelByTypeAndID]];
-    STAssertEquals(NSOrderedDescending, result, @"Expected order: folder1,folder2");
+    XCTAssertEqual(NSOrderedDescending, result, @"Expected order: folder1,folder2");
 }
 
 - (void)testThatBoxFoldersWithEqualIDsAreNSOrderedSame
@@ -97,9 +97,9 @@
     BoxFolder *folder2 = [[BoxFolder alloc] initWithResponseJSON:@{BoxAPIObjectKeyType : BoxAPIItemTypeFolder, BoxAPIObjectKeyID : @"9001"} mini:YES];
 
     NSComparisonResult result1 = [folder1 compare:folder2 usingComparator:[BoxModelComparators modelByTypeAndID]];
-    STAssertEquals(NSOrderedSame, result1, @"Expected order: folder1 == folder2");
+    XCTAssertEqual(NSOrderedSame, result1, @"Expected order: folder1 == folder2");
     NSComparisonResult result2 = [folder2 compare:folder1 usingComparator:[BoxModelComparators modelByTypeAndID]];
-    STAssertEquals(NSOrderedSame, result2, @"Expected order: folder1 == folder2");
+    XCTAssertEqual(NSOrderedSame, result2, @"Expected order: folder1 == folder2");
 }
 
 #pragma mark - itemByName
@@ -110,9 +110,9 @@
     BoxWebLink *weblink = [[BoxWebLink alloc] initWithResponseJSON:@{BoxAPIObjectKeyType : BoxAPIItemTypeWebLink, BoxAPIObjectKeyID : @"99999", BoxAPIObjectKeyName: @"same name"} mini:YES];
 
     NSComparisonResult result1 = [folder compare:weblink usingComparator:[BoxModelComparators itemByName]];
-    STAssertEquals(NSOrderedSame, result1, @"Expected order: folder == weblink");
+    XCTAssertEqual(NSOrderedSame, result1, @"Expected order: folder == weblink");
     NSComparisonResult result2 = [weblink compare:folder usingComparator:[BoxModelComparators itemByName]];
-    STAssertEquals(NSOrderedSame, result2, @"Expected order: folder == weblink");
+    XCTAssertEqual(NSOrderedSame, result2, @"Expected order: folder == weblink");
 }
 
 - (void)testDifferentNamesAreOrderedAlphabetically
@@ -121,9 +121,9 @@
     BoxWebLink *weblink = [[BoxWebLink alloc] initWithResponseJSON:@{BoxAPIObjectKeyType : BoxAPIItemTypeWebLink, BoxAPIObjectKeyID : @"99999", BoxAPIObjectKeyName: @"XYZ"} mini:YES];
 
     NSComparisonResult result1 = [folder compare:weblink usingComparator:[BoxModelComparators itemByName]];
-    STAssertEquals(NSOrderedAscending, result1, @"Expected order: folder,weblink");
+    XCTAssertEqual(NSOrderedAscending, result1, @"Expected order: folder,weblink");
     NSComparisonResult result2 = [weblink compare:folder usingComparator:[BoxModelComparators itemByName]];
-    STAssertEquals(NSOrderedDescending, result2, @"Expected order: folder,weblink");
+    XCTAssertEqual(NSOrderedDescending, result2, @"Expected order: folder,weblink");
 }
 
 - (void)testCaseMattersWhenOrderingByName
@@ -132,9 +132,9 @@
     BoxWebLink *weblink = [[BoxWebLink alloc] initWithResponseJSON:@{BoxAPIObjectKeyType : BoxAPIItemTypeWebLink, BoxAPIObjectKeyID : @"99999", BoxAPIObjectKeyName: @"abc"} mini:YES];
 
     NSComparisonResult result1 = [folder compare:weblink usingComparator:[BoxModelComparators itemByName]];
-    STAssertEquals(NSOrderedAscending, result1, @"Expected order: folder,weblink");
+    XCTAssertEqual(NSOrderedAscending, result1, @"Expected order: folder,weblink");
     NSComparisonResult result2 = [weblink compare:folder usingComparator:[BoxModelComparators itemByName]];
-    STAssertEquals(NSOrderedDescending, result2, @"Expected order: folder,weblink");
+    XCTAssertEqual(NSOrderedDescending, result2, @"Expected order: folder,weblink");
 }
 
 - (void)testOriginalPreceedsCopy
@@ -143,9 +143,9 @@
     BoxFolder *folder2 = [[BoxFolder alloc] initWithResponseJSON:@{BoxAPIObjectKeyType : BoxAPIItemTypeFolder, BoxAPIObjectKeyID : @"12345", BoxAPIObjectKeyName: @"ABC (1)"} mini:YES];
 
     NSComparisonResult result1 = [folder1 compare:folder2 usingComparator:[BoxModelComparators itemByName]];
-    STAssertEquals(NSOrderedAscending, result1, @"Expected order: folder1,folder2");
+    XCTAssertEqual(NSOrderedAscending, result1, @"Expected order: folder1,folder2");
     NSComparisonResult result2 = [folder2 compare:folder1 usingComparator:[BoxModelComparators itemByName]];
-    STAssertEquals(NSOrderedDescending, result2, @"Expected order: folder1,folder2");
+    XCTAssertEqual(NSOrderedDescending, result2, @"Expected order: folder1,folder2");
 }
 
 - (void)testCopiesAreOrderedNumerically
@@ -154,9 +154,9 @@
     BoxFolder *folder2 = [[BoxFolder alloc] initWithResponseJSON:@{BoxAPIObjectKeyType : BoxAPIItemTypeFolder, BoxAPIObjectKeyID : @"12345", BoxAPIObjectKeyName: @"ABC (10)"} mini:YES];
 
     NSComparisonResult result1 = [folder1 compare:folder2 usingComparator:[BoxModelComparators itemByName]];
-    STAssertEquals(NSOrderedAscending, result1, @"Expected order: folder1,folder2");
+    XCTAssertEqual(NSOrderedAscending, result1, @"Expected order: folder1,folder2");
     NSComparisonResult result2 = [folder2 compare:folder1 usingComparator:[BoxModelComparators itemByName]];
-    STAssertEquals(NSOrderedDescending, result2, @"Expected order: folder1,folder2");
+    XCTAssertEqual(NSOrderedDescending, result2, @"Expected order: folder1,folder2");
 }
 
 #pragma mark - itemByCreatedAt
@@ -167,9 +167,9 @@
     BoxFolder *folder2 = [[BoxFolder alloc] initWithResponseJSON:@{BoxAPIObjectKeyType : BoxAPIItemTypeFolder, BoxAPIObjectKeyID : @"12345", BoxAPIObjectKeyCreatedAt: @"2010-01-01T00:00:00"} mini:YES];
 
     NSComparisonResult result1 = [folder1 compare:folder2 usingComparator:[BoxModelComparators itemByCreatedAt]];
-    STAssertEquals(NSOrderedAscending, result1, @"Expected order: folder1,folder2");
+    XCTAssertEqual(NSOrderedAscending, result1, @"Expected order: folder1,folder2");
     NSComparisonResult result2 = [folder2 compare:folder1 usingComparator:[BoxModelComparators itemByCreatedAt]];
-    STAssertEquals(NSOrderedDescending, result2, @"Expected order: folder1,folder2");
+    XCTAssertEqual(NSOrderedDescending, result2, @"Expected order: folder1,folder2");
 }
 
 - (void)testSameCreatedDatesReturnNSOrderedSame
@@ -178,9 +178,9 @@
     BoxFolder *folder2 = [[BoxFolder alloc] initWithResponseJSON:@{BoxAPIObjectKeyType : BoxAPIItemTypeFolder, BoxAPIObjectKeyID : @"12345", BoxAPIObjectKeyCreatedAt: @"2000-01-01T00:00:00"} mini:YES];
 
     NSComparisonResult result1 = [folder1 compare:folder2 usingComparator:[BoxModelComparators itemByCreatedAt]];
-    STAssertEquals(NSOrderedSame, result1, @"Expected order: folder1 == folder2");
+    XCTAssertEqual(NSOrderedSame, result1, @"Expected order: folder1 == folder2");
     NSComparisonResult result2 = [folder2 compare:folder1 usingComparator:[BoxModelComparators itemByCreatedAt]];
-    STAssertEquals(NSOrderedSame, result2, @"Expected order: folder1 == folder2");
+    XCTAssertEqual(NSOrderedSame, result2, @"Expected order: folder1 == folder2");
 }
 
 #pragma mark - itemByModifiedAt
@@ -191,9 +191,9 @@
     BoxFolder *folder2 = [[BoxFolder alloc] initWithResponseJSON:@{BoxAPIObjectKeyType : BoxAPIItemTypeFolder, BoxAPIObjectKeyID : @"12345", BoxAPIObjectKeyModifiedAt: @"2010-01-01T00:00:00"} mini:YES];
 
     NSComparisonResult result1 = [folder1 compare:folder2 usingComparator:[BoxModelComparators itemByModifiedAt]];
-    STAssertEquals(NSOrderedAscending, result1, @"Expected order: folder1,folder2");
+    XCTAssertEqual(NSOrderedAscending, result1, @"Expected order: folder1,folder2");
     NSComparisonResult result2 = [folder2 compare:folder1 usingComparator:[BoxModelComparators itemByModifiedAt]];
-    STAssertEquals(NSOrderedDescending, result2, @"Expected order: folder1,folder2");
+    XCTAssertEqual(NSOrderedDescending, result2, @"Expected order: folder1,folder2");
 }
 
 - (void)testSameModifiedDatesReturnNSOrderedSame
@@ -202,9 +202,9 @@
     BoxFolder *folder2 = [[BoxFolder alloc] initWithResponseJSON:@{BoxAPIObjectKeyType : BoxAPIItemTypeFolder, BoxAPIObjectKeyID : @"12345", BoxAPIObjectKeyModifiedAt: @"2000-01-01T00:00:00"} mini:YES];
 
     NSComparisonResult result1 = [folder1 compare:folder2 usingComparator:[BoxModelComparators itemByModifiedAt]];
-    STAssertEquals(NSOrderedSame, result1, @"Expected order: folder1 == folder2");
+    XCTAssertEqual(NSOrderedSame, result1, @"Expected order: folder1 == folder2");
     NSComparisonResult result2 = [folder2 compare:folder1 usingComparator:[BoxModelComparators itemByModifiedAt]];
-    STAssertEquals(NSOrderedSame, result2, @"Expected order: folder1 == folder2");
+    XCTAssertEqual(NSOrderedSame, result2, @"Expected order: folder1 == folder2");
 }
 
 #pragma mark - itemBySize
@@ -215,9 +215,9 @@
     BoxFolder *folder2 = [[BoxFolder alloc] initWithResponseJSON:@{BoxAPIObjectKeyType : BoxAPIItemTypeFolder, BoxAPIObjectKeyID : @"12345", BoxAPIObjectKeySize: @1024} mini:YES];
 
     NSComparisonResult result1 = [folder1 compare:folder2 usingComparator:[BoxModelComparators itemBySize]];
-    STAssertEquals(NSOrderedAscending, result1, @"Expected order: folder1,folder2");
+    XCTAssertEqual(NSOrderedAscending, result1, @"Expected order: folder1,folder2");
     NSComparisonResult result2 = [folder2 compare:folder1 usingComparator:[BoxModelComparators itemBySize]];
-    STAssertEquals(NSOrderedDescending, result2, @"Expected order: folder1,folder2");
+    XCTAssertEqual(NSOrderedDescending, result2, @"Expected order: folder1,folder2");
 }
 
 - (void)testSameSizesReturnNSOrderedSame
@@ -226,9 +226,9 @@
     BoxFolder *folder2 = [[BoxFolder alloc] initWithResponseJSON:@{BoxAPIObjectKeyType : BoxAPIItemTypeFolder, BoxAPIObjectKeyID : @"12345", BoxAPIObjectKeySize: @1024} mini:YES];
 
     NSComparisonResult result1 = [folder1 compare:folder2 usingComparator:[BoxModelComparators itemBySize]];
-    STAssertEquals(NSOrderedSame, result1, @"Expected order: folder1 == folder2");
+    XCTAssertEqual(NSOrderedSame, result1, @"Expected order: folder1 == folder2");
     NSComparisonResult result2 = [folder2 compare:folder1 usingComparator:[BoxModelComparators itemBySize]];
-    STAssertEquals(NSOrderedSame, result2, @"Expected order: folder1 == folder2");
+    XCTAssertEqual(NSOrderedSame, result2, @"Expected order: folder1 == folder2");
 }
 
 #pragma mark - fileBySHA1
@@ -239,9 +239,9 @@
     BoxFile *file2 = [[BoxFile alloc] initWithResponseJSON:@{BoxAPIObjectKeyType : BoxAPIItemTypeFile, BoxAPIObjectKeyID : @"12345", BoxAPIObjectKeySHA1: @"feedbeef"} mini:YES];
 
     NSComparisonResult result1 = [file1 compare:file2 usingComparator:[BoxModelComparators fileBySHA1]];
-    STAssertTrue(NSOrderedSame != result1, @"file1 != file2");
+    XCTAssertTrue(NSOrderedSame != result1, @"file1 != file2");
     NSComparisonResult result2 = [file2 compare:file1 usingComparator:[BoxModelComparators fileBySHA1]];
-    STAssertTrue(NSOrderedSame != result2, @"file1 != file2");
+    XCTAssertTrue(NSOrderedSame != result2, @"file1 != file2");
 }
 
 - (void)testSameSHA1sReturnNSOrderedSame
@@ -250,9 +250,9 @@
     BoxFile *file2 = [[BoxFile alloc] initWithResponseJSON:@{BoxAPIObjectKeyType : BoxAPIItemTypeFile, BoxAPIObjectKeyID : @"12345", BoxAPIObjectKeySHA1: @"deadbeef"} mini:YES];
 
     NSComparisonResult result1 = [file1 compare:file2 usingComparator:[BoxModelComparators fileBySHA1]];
-    STAssertEquals(NSOrderedSame, result1, @"Expected order: file1 == file2");
+    XCTAssertEqual(NSOrderedSame, result1, @"Expected order: file1 == file2");
     NSComparisonResult result2 = [file2 compare:file1 usingComparator:[BoxModelComparators fileBySHA1]];
-    STAssertEquals(NSOrderedSame, result2, @"Expected order: file1 == file2");
+    XCTAssertEqual(NSOrderedSame, result2, @"Expected order: file1 == file2");
 }
 
 @end

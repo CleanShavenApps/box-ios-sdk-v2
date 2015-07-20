@@ -52,33 +52,33 @@
 
 - (void)testThatCollectionReturnsCorrectTotalCount
 {
-    STAssertEqualObjects(COLLECTION_TOTAL_COUNT, collection.totalCount, @"Expected total count does not match");
+    XCTAssertEqualObjects(COLLECTION_TOTAL_COUNT, collection.totalCount, @"Expected total count does not match");
 }
 
 - (void)testThatCollectionReturnsTotalItemsInPageItRepresents
 {
-    STAssertEquals((NSUInteger)COLLECTION_PAGE_ITEM_COUNT, collection.numberOfEntries, @"collection returned incorrect number of entries");
+    XCTAssertEqual((NSUInteger)COLLECTION_PAGE_ITEM_COUNT, collection.numberOfEntries, @"collection returned incorrect number of entries");
 }
 
 - (void)testThatCollectionReturnsABoxFileForEntryZero
 {
     BoxModel *item = [collection modelAtIndex:0];
-    STAssertNotNil(item, @"item is not nil");
-    STAssertTrue([item isKindOfClass:[BoxFile class]], @"BoxModel should be a BoxFile");
+    XCTAssertNotNil(item, @"item is not nil");
+    XCTAssertTrue([item isKindOfClass:[BoxFile class]], @"BoxModel should be a BoxFile");
 }
 
 - (void)testThatCollectionReturnsABoxFolderForEntryOne
 {
     BoxModel *item = [collection modelAtIndex:1];
-    STAssertNotNil(item, @"item is not nil");
-    STAssertTrue([item isKindOfClass:[BoxFolder class]], @"BoxModel should be a BoxFolder");
+    XCTAssertNotNil(item, @"item is not nil");
+    XCTAssertTrue([item isKindOfClass:[BoxFolder class]], @"BoxModel should be a BoxFolder");
 }
 
 - (void)testThatCollectionReturnsABoxWebLinkForEntryFour
 {
     BoxModel *item = [collection modelAtIndex:4];
-    STAssertNotNil(item, @"item is not nil");
-    STAssertTrue([item isKindOfClass:[BoxWebLink class]], @"BoxModel should be a BoxWebLink");
+    XCTAssertNotNil(item, @"item is not nil");
+    XCTAssertTrue([item isKindOfClass:[BoxWebLink class]], @"BoxModel should be a BoxWebLink");
 }
 
 @end

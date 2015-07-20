@@ -33,12 +33,14 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E470434B16D41DC500FED29A"
-               BuildableName = "BoxSDKTests.octest"
+               BuildableName = "BoxSDKTests.xctest"
                BlueprintName = "BoxSDKTests"
                ReferencedContainer = "container:BoxSDK.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
+      <AdditionalOptions>
+      </AdditionalOptions>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -48,7 +50,17 @@
       buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
+      debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "E470433A16D41DC500FED29A"
+            BuildableName = "libBoxSDK.a"
+            BlueprintName = "BoxSDK"
+            ReferencedContainer = "container:BoxSDK.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

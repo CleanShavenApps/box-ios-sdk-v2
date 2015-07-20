@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 Box. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
 @class BoxUser;
 
-@interface BoxUserTests : SenTestCase
+@interface BoxUserTests : XCTestCase
 {
     NSDictionary *JSONDictionaryFull;
     NSDictionary *JSONDictionaryMini;

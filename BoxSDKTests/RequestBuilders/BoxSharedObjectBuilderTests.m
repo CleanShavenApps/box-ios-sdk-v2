@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 Box. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import "BoxSharedObjectBuilder.h"
 
-@interface BoxSharedObjectBuilderTests : SenTestCase
+@interface BoxSharedObjectBuilderTests : XCTestCase
 
 @end
 
@@ -20,13 +20,13 @@
     BoxSharedObjectBuilder *builder = [[BoxSharedObjectBuilder alloc] init];
 
     builder.access = BoxAPISharedObjectAccessOpen;
-    STAssertEqualObjects(@"open", [builder bodyParameters][@"access"], @"Shared link access property is not set correctly");
+    XCTAssertEqualObjects(@"open", [builder bodyParameters][@"access"], @"Shared link access property is not set correctly");
 
     builder.access = BoxAPISharedObjectAccessCompany;
-    STAssertEqualObjects(@"company", [builder bodyParameters][@"access"], @"Shared link access property is not set correctly");
+    XCTAssertEqualObjects(@"company", [builder bodyParameters][@"access"], @"Shared link access property is not set correctly");
 
     builder.access = BoxAPISharedObjectAccessCollaborators;
-    STAssertEqualObjects(@"collaborators", [builder bodyParameters][@"access"], @"Shared link access property is not set correctly");
+    XCTAssertEqualObjects(@"collaborators", [builder bodyParameters][@"access"], @"Shared link access property is not set correctly");
 }
 
 - (void)testThatPreviewPermissionsAreProperlySet
@@ -42,13 +42,13 @@
         builder.access = accessType;
 
         builder.canPreview = BoxAPISharedObjectPermissionStateEnabled;
-        STAssertTrue([[builder bodyParameters][@"permissions"][@"can_preview"] boolValue], @"Can preview failed to set correctly");
+        XCTAssertTrue([[builder bodyParameters][@"permissions"][@"can_preview"] boolValue], @"Can preview failed to set correctly");
 
         builder.canPreview = BoxAPISharedObjectPermissionStateDisabled;
-        STAssertFalse([[builder bodyParameters][@"permissions"][@"can_preview"] boolValue], @"Can preview failed to set correctly");
+        XCTAssertFalse([[builder bodyParameters][@"permissions"][@"can_preview"] boolValue], @"Can preview failed to set correctly");
 
         builder.canPreview = BoxAPISharedObjectPermissionStateUnset;
-        STAssertFalse([[builder bodyParameters][@"permissions"][@"can_preview"] boolValue], @"Can preview failed to set correctly");
+        XCTAssertFalse([[builder bodyParameters][@"permissions"][@"can_preview"] boolValue], @"Can preview failed to set correctly");
     }
 }
 
@@ -65,13 +65,13 @@
         builder.access = accessType;
 
         builder.canDownload = BoxAPISharedObjectPermissionStateEnabled;
-        STAssertTrue([[builder bodyParameters][@"permissions"][@"can_download"] boolValue], @"Can download failed to set correctly");
+        XCTAssertTrue([[builder bodyParameters][@"permissions"][@"can_download"] boolValue], @"Can download failed to set correctly");
 
         builder.canDownload = BoxAPISharedObjectPermissionStateDisabled;
-        STAssertFalse([[builder bodyParameters][@"permissions"][@"can_download"] boolValue], @"Can download failed to set correctly");
+        XCTAssertFalse([[builder bodyParameters][@"permissions"][@"can_download"] boolValue], @"Can download failed to set correctly");
 
         builder.canDownload = BoxAPISharedObjectPermissionStateUnset;
-        STAssertFalse([[builder bodyParameters][@"permissions"][@"can_download"] boolValue], @"Can download failed to set correctly");
+        XCTAssertFalse([[builder bodyParameters][@"permissions"][@"can_download"] boolValue], @"Can download failed to set correctly");
     }
 }
 

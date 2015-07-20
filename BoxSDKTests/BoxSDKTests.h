@@ -8,11 +8,11 @@
 //  NOTE: this file is a mirror of BoxCocoaSDKTests/BoxCocoaSDKTests.h. Changes made here should be reflected there.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
 @class BoxSDK;
 
-@interface BoxSDKTests : SenTestCase
+@interface BoxSDKTests : XCTestCase
 {
     BoxSDK *SDK;
 }

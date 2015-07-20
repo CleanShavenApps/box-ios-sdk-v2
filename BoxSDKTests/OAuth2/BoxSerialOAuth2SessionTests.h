@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Box. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
-@interface BoxSerialOAuth2SessionTests : SenTestCase
+@interface BoxSerialOAuth2SessionTests : XCTestCase
 {
     NSString *clientID;
     NSString *clientSecret;

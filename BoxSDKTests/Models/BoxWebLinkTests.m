@@ -33,12 +33,12 @@
 - (void)testThatURLIsReturnedFromFolderWhenSetInFullFormat
 {
     NSURL *expectedURL = [NSURL URLWithString:@"https://www.box.com"];
-    STAssertEqualObjects(expectedURL, webLink.URL, @"expected URL did not match actual");
+    XCTAssertEqualObjects(expectedURL, webLink.URL, @"expected URL did not match actual");
 }
 
 - (void)testThatURLIsReturnedAsNilIfNotSetInMiniFormat
 {
-    STAssertNil(miniWebLink.URL, @"expected URL is nil");
+    XCTAssertNil(miniWebLink.URL, @"expected URL is nil");
 }
 
 - (void)testThatURLIsReturnedAsNilWhenSetToGarbageValue

@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Box. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
 #ifdef DEBUG
 #define BoxAssertThrowsInDebugOrAssertNilInRelease(expr, description, ...) STAssertThrows(expr, description, ##__VA_ARGS__)

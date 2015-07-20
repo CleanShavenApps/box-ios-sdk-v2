@@ -20,7 +20,7 @@
 
 - (void)testThatItemIsEmptyWhenNoPropertiesAreSet
 {
-    STAssertEqualObjects(@{}, builder.bodyParameters, @"body parameters should be an empty dictionary if no properties are set");
+    XCTAssertEqualObjects(@{}, builder.bodyParameters, @"body parameters should be an empty dictionary if no properties are set");
 }
 
 - (void)testThatItemInBodyDictionaryWhenPropertyIsSet
@@ -35,14 +35,14 @@
         BoxAPIObjectKeyID: @"12345",
     };
     
-    STAssertEqualObjects(@{BoxAPIObjectKeyItem : expectedItem}, builder.bodyParameters, @"item should be included in body dictionary when set");
+    XCTAssertEqualObjects(@{BoxAPIObjectKeyItem : expectedItem}, builder.bodyParameters, @"item should be included in body dictionary when set");
 }
 
 - (void)testThatMessageInBodyDictionaryWhenPropertyIsSet
 {
     NSString *const message = @"Silence is golden, duct tape is silver";
     builder.message = message;
-    STAssertEqualObjects(@{BoxAPIObjectKeyMessage : message}, builder.bodyParameters, @"message should be included in body dictionary when set");
+    XCTAssertEqualObjects(@{BoxAPIObjectKeyMessage : message}, builder.bodyParameters, @"message should be included in body dictionary when set");
 }
 
 @end

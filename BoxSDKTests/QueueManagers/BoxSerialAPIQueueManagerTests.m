@@ -92,7 +92,7 @@
 - (void)testThatSerialQueueOnlyAllowsOneConcurrentOperation
 {
     BoxSerialAPIQueueManager *queueManager = [[BoxSerialAPIQueueManager alloc] init];
-    STAssertEquals((NSInteger)1, queueManager.globalQueue.maxConcurrentOperationCount, @"Queue's maxConcurrentOperationCount should == 1");
+    XCTAssertEqual((NSInteger)1, queueManager.globalQueue.maxConcurrentOperationCount, @"Queue's maxConcurrentOperationCount should == 1");
 }
 
 @end

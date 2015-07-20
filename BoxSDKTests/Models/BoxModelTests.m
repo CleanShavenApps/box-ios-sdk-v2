@@ -27,27 +27,27 @@
 
 - (void)testThatModelReturnsIDFromRawJSONDictionary
 {
-    STAssertEqualObjects(MODEL_ID, [model.rawResponseJSON objectForKey:BoxAPIObjectKeyID], @"id key not retrieved correctly from JSON dictionary");
+    XCTAssertEqualObjects(MODEL_ID, [model.rawResponseJSON objectForKey:BoxAPIObjectKeyID], @"id key not retrieved correctly from JSON dictionary");
 }
 
 - (void)testThatModelReturnsIDFromAccessor
 {
-    STAssertEqualObjects(MODEL_ID, model.modelID, @"id key not retrieved correctly from accessor");
+    XCTAssertEqualObjects(MODEL_ID, model.modelID, @"id key not retrieved correctly from accessor");
 }
 
 - (void)testThatModelReturnsTypeFromRawJSONDictionary
 {
-    STAssertEqualObjects(MODEL_TYPE, [model.rawResponseJSON objectForKey:BoxAPIObjectKeyType], @"type key not retrieved correctly from JSON dictionary");
+    XCTAssertEqualObjects(MODEL_TYPE, [model.rawResponseJSON objectForKey:BoxAPIObjectKeyType], @"type key not retrieved correctly from JSON dictionary");
 }
 
 - (void)testThatModelReturnsTypeFromAccessor
 {
-    STAssertEqualObjects(MODEL_TYPE, model.type, @"type key not retrieved correctly from accessor");
+    XCTAssertEqualObjects(MODEL_TYPE, model.type, @"type key not retrieved correctly from accessor");
 }
 
 - (void)testThatModelReturnsUnknownKeyFromRawJSONDictionary
 {
-    STAssertEqualObjects(MODEL_FOO, [model.rawResponseJSON objectForKey:MODEL_KEY_FOO], @"foo key not retrieved correctly from JSON dictionary");
+    XCTAssertEqualObjects(MODEL_FOO, [model.rawResponseJSON objectForKey:MODEL_KEY_FOO], @"foo key not retrieved correctly from JSON dictionary");
 }
 
 - (void)testThatISO8601StringDecodesToCorrectDateObjectForBeginningOfEpochForZuluDateString
@@ -56,7 +56,7 @@
     NSDate *expectedDate = [NSDate dateWithTimeIntervalSince1970:0];
     NSDate *actualDate = [model dateWithISO8601String:dateString];
 
-    STAssertEqualObjects(expectedDate, actualDate, @"date string %@ did not decode correctly", dateString);
+    XCTAssertEqualObjects(expectedDate, actualDate, @"date string %@ did not decode correctly", dateString);
 }
 
 - (void)testThatISO8601StringDecodesToCorrectDateObjectForBeginningOfEpochForPacificTZDateString
@@ -65,7 +65,7 @@
     NSDate *expectedDate = [NSDate dateWithTimeIntervalSince1970:0];
     NSDate *actualDate = [model dateWithISO8601String:dateString];
 
-    STAssertEqualObjects(expectedDate, actualDate, @"date string %@ did not decode correctly", dateString);
+    XCTAssertEqualObjects(expectedDate, actualDate, @"date string %@ did not decode correctly", dateString);
 }
 
 - (void)testThatISO8601StringDecodesToCorrectDateObjectForY2KForZuluDateString
@@ -74,7 +74,7 @@
     NSDate *expectedDate = [NSDate dateWithTimeIntervalSince1970:946684800];
     NSDate *actualDate = [model dateWithISO8601String:dateString];
 
-    STAssertEqualObjects(expectedDate, actualDate, @"date string %@ did not decode correctly", dateString);
+    XCTAssertEqualObjects(expectedDate, actualDate, @"date string %@ did not decode correctly", dateString);
 }
 
 - (void)testThatISO8601StringDecodesToCorrectDateObjectForY2KForPacificTZDateString
@@ -83,7 +83,7 @@
     NSDate *expectedDate = [NSDate dateWithTimeIntervalSince1970:946684800];
     NSDate *actualDate = [model dateWithISO8601String:dateString];
 
-    STAssertEqualObjects(expectedDate, actualDate, @"date string %@ did not decode correctly", dateString);
+    XCTAssertEqualObjects(expectedDate, actualDate, @"date string %@ did not decode correctly", dateString);
 }
 
 @end

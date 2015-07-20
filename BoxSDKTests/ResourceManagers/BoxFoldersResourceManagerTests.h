@@ -6,13 +6,13 @@
 //  Copyright (c) 2013 Box. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
 @class BoxFoldersResourceManager;
 @class BoxSerialOAuth2Session;
 @class BoxSerialAPIQueueManager;
 
-@interface BoxFoldersResourceManagerTests : SenTestCase
+@interface BoxFoldersResourceManagerTests : XCTestCase
 {
     BoxFoldersResourceManager *foldersManager;
     NSString *APIBaseURL;

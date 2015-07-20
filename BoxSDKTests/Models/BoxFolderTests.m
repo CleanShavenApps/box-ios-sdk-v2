@@ -96,143 +96,143 @@
 - (void)testThatCreatedAtIsParsedCorrectlyIntoADateFromFullFormat
 {
     NSDate *expectedDate = [NSDate dateWithTimeIntervalSince1970:1236128523];
-    STAssertEqualObjects(expectedDate, folder.createdAt, @"expected created at did not match actual");
+    XCTAssertEqualObjects(expectedDate, folder.createdAt, @"expected created at did not match actual");
 }
 
 - (void)testThatCreatedAtIsReturnedAsNilIfUnsetFromMiniFormat
 {
-    STAssertNil(miniFolder.createdAt, @"created at should be nil");
+    XCTAssertNil(miniFolder.createdAt, @"created at should be nil");
 }
 
 - (void)testThatCreatedAtIsReturnedAsNilIfNullInRootFolder
 {
-    STAssertNil(rootFolder.createdAt, @"created at should be nil");
+    XCTAssertNil(rootFolder.createdAt, @"created at should be nil");
 }
 
 - (void)testThatCreatedAtIsReturnedAsNilIfSetToAGarbageValue
 {
     BoxFolder *garbageFolder = [[BoxFolder alloc] initWithResponseJSON:@{BoxAPIObjectKeyCreatedAt : @"foobar is not a timestamp"} mini:YES];
-    STAssertNil(garbageFolder.createdAt, @"created at should be nil when folder is initalized with a garbage value");
+    XCTAssertNil(garbageFolder.createdAt, @"created at should be nil when folder is initalized with a garbage value");
 }
 
 - (void)testThatModifiedAtIsParsedCorrectlyIntoADateFromFullFormat
 {
     NSDate *expectedDate = [NSDate dateWithTimeIntervalSince1970:1236214923];
-    STAssertEqualObjects(expectedDate, folder.modifiedAt, @"expected modified at did not match actual");
+    XCTAssertEqualObjects(expectedDate, folder.modifiedAt, @"expected modified at did not match actual");
 }
 
 - (void)testThatModifiedAtIsReturnedAsNilIfUnsetFromMiniFormat
 {
-    STAssertNil(miniFolder.modifiedAt, @"modified at should be nil");
+    XCTAssertNil(miniFolder.modifiedAt, @"modified at should be nil");
 }
 
 - (void)testThatModifiedAtIsReturnedAsNilIfNullInRootFolder
 {
-    STAssertNil(rootFolder.modifiedAt, @"modified at should be nil");
+    XCTAssertNil(rootFolder.modifiedAt, @"modified at should be nil");
 }
 
 - (void)testThatModifiedAtIsReturnedAsNilIfSetToAGarbageValue
 {
     BoxFolder *garbageFolder = [[BoxFolder alloc] initWithResponseJSON:@{BoxAPIObjectKeyModifiedAt : @"foobar is not a timestamp"} mini:YES];
-    STAssertNil(garbageFolder.modifiedAt, @"modified at should be nil when folder is initalized with a garbage value");
+    XCTAssertNil(garbageFolder.modifiedAt, @"modified at should be nil when folder is initalized with a garbage value");
 }
 
 - (void)testThatContentCreatedAtIsParsedCorrectlyIntoADateFromFullFormat
 {
     NSDate *expectedDate = [NSDate dateWithTimeIntervalSince1970:1235869323];
-    STAssertEqualObjects(expectedDate, folder.contentCreatedAt, @"expected content created at did not match actual");
+    XCTAssertEqualObjects(expectedDate, folder.contentCreatedAt, @"expected content created at did not match actual");
 }
 
 - (void)testThatContentCreatedAtIsReturnedAsNilIfUnsetFromMiniFormat
 {
-    STAssertNil(miniFolder.contentCreatedAt, @"created at should be nil");
+    XCTAssertNil(miniFolder.contentCreatedAt, @"created at should be nil");
 }
 
 - (void)testThatContentCreatedAtIsReturnedAsNilIfNullInRootFolder
 {
-    STAssertNil(rootFolder.contentCreatedAt, @"content created at should be nil");
+    XCTAssertNil(rootFolder.contentCreatedAt, @"content created at should be nil");
 }
 
 - (void)testThatContentCreatedAtIsReturnedAsNilIfSetToAGarbageValue
 {
     BoxFolder *garbageFolder = [[BoxFolder alloc] initWithResponseJSON:@{BoxAPIObjectKeyContentCreatedAt : @"foobar is not a timestamp"} mini:YES];
-    STAssertNil(garbageFolder.contentCreatedAt, @"content created at should be nil when folder is initalized with a garbage value");
+    XCTAssertNil(garbageFolder.contentCreatedAt, @"content created at should be nil when folder is initalized with a garbage value");
 }
 
 - (void)testThatContentModifiedAtIsParsedCorrectlyIntoADateFromFullFormat
 {
     NSDate *expectedDate = [NSDate dateWithTimeIntervalSince1970:1235955723];
-    STAssertEqualObjects(expectedDate, folder.contentModifiedAt, @"expected content modified at did not match actual");
+    XCTAssertEqualObjects(expectedDate, folder.contentModifiedAt, @"expected content modified at did not match actual");
 }
 
 - (void)testThatContentModifiedAtIsReturnedAsNilIfUnsetFromMiniFormat
 {
-    STAssertNil(miniFolder.contentModifiedAt, @"content modified at should be nil");
+    XCTAssertNil(miniFolder.contentModifiedAt, @"content modified at should be nil");
 }
 
 - (void)testThatContentModifiedAtIsReturnedAsNilIfNullInRootFolder
 {
-    STAssertNil(rootFolder.contentModifiedAt, @"content modified at should be nil");
+    XCTAssertNil(rootFolder.contentModifiedAt, @"content modified at should be nil");
 }
 
 - (void)testThatContentModifiedAtIsReturnedAsNilIfSetToAGarbageValue
 {
     BoxFolder *garbageFolder = [[BoxFolder alloc] initWithResponseJSON:@{BoxAPIObjectKeyContentModifiedAt : @"foobar is not a timestamp"} mini:YES];
-    STAssertNil(garbageFolder.contentModifiedAt, @"content modified at should be nil when folder is initalized with a garbage value");
+    XCTAssertNil(garbageFolder.contentModifiedAt, @"content modified at should be nil when folder is initalized with a garbage value");
 }
 
 - (void)testThatTrashedAtIsParsedCorrectlyIntoADateFromFullFormat
 {
     NSDate *expectedDate = [NSDate dateWithTimeIntervalSince1970:1235955723];
-    STAssertEqualObjects(expectedDate, folder.trashedAt, @"expected trashed at did not match actual");
+    XCTAssertEqualObjects(expectedDate, folder.trashedAt, @"expected trashed at did not match actual");
 }
 
 - (void)testThatTrashedAtIsReturnedAsNilIfUnsetFromMiniFormat
 {
-    STAssertNil(miniFolder.trashedAt, @"trashed at should be nil");
+    XCTAssertNil(miniFolder.trashedAt, @"trashed at should be nil");
 }
 
 - (void)testThatTrashedAtIsReturnedAsNilIfNullInRootFolder
 {
-    STAssertNil(rootFolder.trashedAt, @"trashed at should be nil");
+    XCTAssertNil(rootFolder.trashedAt, @"trashed at should be nil");
 }
 
 - (void)testThatTrashedAtIsReturnedAsNilIfSetToAGarbageValue
 {
     BoxFolder *garbageFolder = [[BoxFolder alloc] initWithResponseJSON:@{BoxAPIObjectKeyTrashedAt : @"foobar is not a timestamp"} mini:YES];
-    STAssertNil(garbageFolder.trashedAt, @"trashed at should be nil when folder is initalized with a garbage value");
+    XCTAssertNil(garbageFolder.trashedAt, @"trashed at should be nil when folder is initalized with a garbage value");
 }
 
 - (void)testThatPurgedAtIsParsedCorrectlyIntoADateFromFullFormat
 {
     NSDate *expectedDate = [NSDate dateWithTimeIntervalSince1970:1235955723];
-    STAssertEqualObjects(expectedDate, folder.purgedAt, @"expected purged at did not match actual");
+    XCTAssertEqualObjects(expectedDate, folder.purgedAt, @"expected purged at did not match actual");
 }
 
 - (void)testThatPurgedAtIsReturnedAsNilIfUnsetFromMiniFormat
 {
-    STAssertNil(miniFolder.purgedAt, @"purged at should be nil");
+    XCTAssertNil(miniFolder.purgedAt, @"purged at should be nil");
 }
 
 - (void)testThatPurgedAtIsReturnedAsNilIfNullInRootFolder
 {
-    STAssertNil(rootFolder.purgedAt, @"purged at should be nil");
+    XCTAssertNil(rootFolder.purgedAt, @"purged at should be nil");
 }
 
 - (void)testThatPurgedAtIsReturnedAsNilIfSetToAGarbageValue
 {
     BoxFolder *garbageFolder = [[BoxFolder alloc] initWithResponseJSON:@{BoxAPIObjectKeyPurgedAt : @"foobar is not a timestamp"} mini:YES];
-    STAssertNil(garbageFolder.purgedAt, @"purged at should be nil when folder is initalized with a garbage value");
+    XCTAssertNil(garbageFolder.purgedAt, @"purged at should be nil when folder is initalized with a garbage value");
 }
 
 - (void)testThatDescriptionIsReturnedFromFullFormat
 {
-    STAssertEqualObjects(@"Goku's Folder", folder.description, @"expected description did not match actual");
+    XCTAssertEqualObjects(@"Goku's Folder", folder.description, @"expected description did not match actual");
 }
 
 - (void)testThatDescriptionIsReturnedAsNilIfUnsetFromMiniFormat
 {
-    STAssertNil(miniFolder.description, @"expected description should be nil");
+    XCTAssertNil(miniFolder.description, @"expected description should be nil");
 }
 
 - (void)testThatDescriptionIsReturnedAsNilIfSetToAGarbageValue
@@ -244,12 +244,12 @@
 
 - (void)testThatNameIsReturnedFromFullFormat
 {
-    STAssertEqualObjects(@"Goku and his power level", folder.name, @"expected name did not match actual");
+    XCTAssertEqualObjects(@"Goku and his power level", folder.name, @"expected name did not match actual");
 }
 
 - (void)testThatNameIsReturnedAsNilIfUnsetFromMiniFormat
 {
-    STAssertNil(miniFolder.name, @"expected name should be nil");
+    XCTAssertNil(miniFolder.name, @"expected name should be nil");
 }
 
 - (void)testThatNameIsReturnedAsNilIfSetToAGarbageValue
@@ -261,12 +261,12 @@
 
 - (void)testThatSizeIsReturnedFromFullFormat
 {
-    STAssertEqualObjects(@9001, folder.size, @"expected size did not match actual");
+    XCTAssertEqualObjects(@9001, folder.size, @"expected size did not match actual");
 }
 
 - (void)testThatSizeIsReturnedAsNilIfUnsetFromMiniFormat
 {
-    STAssertNil(miniFolder.size, @"expected size should be nil");
+    XCTAssertNil(miniFolder.size, @"expected size should be nil");
 }
 
 - (void)testThatSizeIsReturnedAsNilIfSetToAGarbageValue
@@ -278,17 +278,17 @@
 
 - (void)testThatETagIsReturnedFromFullFormat
 {
-    STAssertEqualObjects(@"etag", folder.ETag, @"expected etag did not match actual");
+    XCTAssertEqualObjects(@"etag", folder.ETag, @"expected etag did not match actual");
 }
 
 - (void)testThatETagIsReturnedAsNilIfUnsetFromMiniFormat
 {
-    STAssertNil(miniFolder.ETag, @"expected etag should be nil");
+    XCTAssertNil(miniFolder.ETag, @"expected etag should be nil");
 }
 
 - (void)testThatETagIsReturnedAsNilIfNullInRootFolder
 {
-    STAssertNil(rootFolder.ETag, @"ETag at should be nil");
+    XCTAssertNil(rootFolder.ETag, @"ETag at should be nil");
 }
 
 - (void)testThatETagIsReturnedAsNilIfSetToAGarbageValue
@@ -300,17 +300,17 @@
 
 - (void)testThatSequenceIDIsReturnedFromFullFormat
 {
-    STAssertEqualObjects(@"sequence-id", folder.sequenceID, @"expected sequence id did not match actual");
+    XCTAssertEqualObjects(@"sequence-id", folder.sequenceID, @"expected sequence id did not match actual");
 }
 
 - (void)testThatSequenceIDIsReturnedAsNilIfUnsetFromMiniFormat
 {
-    STAssertNil(miniFolder.sequenceID, @"expected sequence id should be nil");
+    XCTAssertNil(miniFolder.sequenceID, @"expected sequence id should be nil");
 }
 
 - (void)testThatSequenceIdIsReturnedAsNilIfNullInRootFolder
 {
-    STAssertNil(rootFolder.sequenceID, @"sequence id at should be nil");
+    XCTAssertNil(rootFolder.sequenceID, @"sequence id at should be nil");
 }
 
 - (void)testThatSequenceIDIsReturnedAsNilIfSetToAGarbageValue
@@ -322,98 +322,98 @@
 
 - (void)testThatCreatedByIsReturnedFromFullFormat
 {
-    STAssertTrue([folder.createdBy isKindOfClass:[BoxUser class]], @"expected created by to be a BoxUser");
+    XCTAssertTrue([folder.createdBy isKindOfClass:[BoxUser class]], @"expected created by to be a BoxUser");
 }
 
 - (void)testThatCreatedByIsReturnedAsNilIfUnsetFromMiniFormat
 {
-    STAssertNil(miniFolder.createdBy, @"expected created by should be nil");
+    XCTAssertNil(miniFolder.createdBy, @"expected created by should be nil");
 }
 
 - (void)testThatModifiedByIsReturnedFromFullFormat
 {
-    STAssertTrue([folder.modifiedBy isKindOfClass:[BoxUser class]], @"expected modified by to be a BoxUser");
+    XCTAssertTrue([folder.modifiedBy isKindOfClass:[BoxUser class]], @"expected modified by to be a BoxUser");
 }
 
 - (void)testThatModifiedByIsReturnedAsNilIfUnsetFromMiniFormat
 {
-    STAssertNil(miniFolder.modifiedBy, @"expected modified by should be nil");
+    XCTAssertNil(miniFolder.modifiedBy, @"expected modified by should be nil");
 }
 
 - (void)testThatOwnedByIsReturnedFromFullFormat
 {
-    STAssertTrue([folder.ownedBy isKindOfClass:[BoxUser class]], @"expected owned by to be a BoxUser");
+    XCTAssertTrue([folder.ownedBy isKindOfClass:[BoxUser class]], @"expected owned by to be a BoxUser");
 }
 
 - (void)testThatOwnedByIsReturnedAsNilIfUnsetFromMiniFormat
 {
-    STAssertNil(miniFolder.ownedBy, @"expected owned by should be nil");
+    XCTAssertNil(miniFolder.ownedBy, @"expected owned by should be nil");
 }
 
 - (void)testThatSharedLinkIsReturnedAsNullIfPresentAndUnsetInFullFormat
 {
-    STAssertEqualObjects([NSNull null], folder.sharedLink, @"expected shared link to be null object");
+    XCTAssertEqualObjects([NSNull null], folder.sharedLink, @"expected shared link to be null object");
 }
 
 - (void)testThatSharedLinkIsReturnedAsNilIfUnsetInMiniFormat
 {
-    STAssertNil(miniFolder.sharedLink, @"expected shared link to be nil when unset");
+    XCTAssertNil(miniFolder.sharedLink, @"expected shared link to be nil when unset");
 }
 
 - (void)testThatSyncStateIsReturnedFromFullFormat
 {
-    STAssertEqualObjects(@"synced", folder.syncState, @"expected sync state did not match actual");
+    XCTAssertEqualObjects(@"synced", folder.syncState, @"expected sync state did not match actual");
 }
 
 - (void)testThatSyncStateIsReturnedAsNilIfUnsetInMiniFormat
 {
-    STAssertNil(miniFolder.syncState, @"expected sync state to be nil");
+    XCTAssertNil(miniFolder.syncState, @"expected sync state to be nil");
 }
 
 - (void)testThatPathCollectionIsReturnedFromFullFormat
 {
-    STAssertTrue([folder.pathCollection isKindOfClass:[BoxCollection class]], @"expected path collection to be a BoxCollection");
+    XCTAssertTrue([folder.pathCollection isKindOfClass:[BoxCollection class]], @"expected path collection to be a BoxCollection");
 }
 
 - (void)testThatPathCollectionIsReturnedAsNilIfUnsetFromMiniFormat
 {
-    STAssertNil(miniFolder.pathCollection, @"expected path collection should be nil");
+    XCTAssertNil(miniFolder.pathCollection, @"expected path collection should be nil");
 }
 
 - (void)testThatFolderUploadEmailIsReturnedAsNullIfPresentAndUnsetInFullFormat
 {
-    STAssertEqualObjects([NSNull null], folder.folderUploadEmail, @"expected folder upload email to be null object");
+    XCTAssertEqualObjects([NSNull null], folder.folderUploadEmail, @"expected folder upload email to be null object");
 }
 
 - (void)testThatFolderUploadEmailIsReturnedAsNilIfUnsetInMiniFormat
 {
-    STAssertNil(miniFolder.folderUploadEmail, @"expected folder upload email to be nil when unset");
+    XCTAssertNil(miniFolder.folderUploadEmail, @"expected folder upload email to be nil when unset");
 }
 
 - (void)testThatItemStatusIsReturnedFromFullFormat
 {
-    STAssertEqualObjects(@"active", folder.itemStatus, @"expected item status did not match actual");
+    XCTAssertEqualObjects(@"active", folder.itemStatus, @"expected item status did not match actual");
 }
 
 - (void)testThatItemStatusIsReturnedAsNilIfUnsetInMiniFormat
 {
-    STAssertNil(miniFolder.itemStatus, @"expected item status to be nil");
+    XCTAssertNil(miniFolder.itemStatus, @"expected item status to be nil");
 }
 
 - (void)testThatParentIsReturnedFromFullFormat
 {
-    STAssertNotNil(folder.parent, @"parent should be non-nil");
-    STAssertTrue([folder.parent isKindOfClass:[BoxFolder class]], @"parent should be a BoxFolder");
+    XCTAssertNotNil(folder.parent, @"parent should be non-nil");
+    XCTAssertTrue([folder.parent isKindOfClass:[BoxFolder class]], @"parent should be a BoxFolder");
 }
 
 - (void)testThatParentIsReturnedAsNilFromMiniFormat
 {
-    STAssertNil(miniFolder.parent, @"parent should be nil");
+    XCTAssertNil(miniFolder.parent, @"parent should be nil");
 }
 
 - (void)testThatParentIsReturnedAsNSNullFromRootFolder
 {
-    STAssertEqualObjects([NSNull null], rootFolder.parent, @"parent is nullable");
+    XCTAssertEqualObjects([NSNull null], rootFolder.parent, @"parent is nullable");
 }
 
 @end

@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 Box. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
 #import "BoxUsersRequestBuilder.h"
 
-@interface BoxUsersRequestBuilderTests : SenTestCase
+@interface BoxUsersRequestBuilderTests : XCTestCase
 {
     BoxUsersRequestBuilder *builder;
 }

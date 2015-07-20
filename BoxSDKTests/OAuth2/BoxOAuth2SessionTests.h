@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Box. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
-@interface BoxOAuth2SessionTests : SenTestCase
+@interface BoxOAuth2SessionTests : XCTestCase
 
 @end

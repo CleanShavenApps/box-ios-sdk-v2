@@ -43,7 +43,7 @@
 {
     BoxAPIJSONOperation *operation = [usersManager userInfoWithID:userID requestBuilder:nil success:nil failure:nil];
     
-    STAssertEqualObjects(BoxAPIHTTPMethodGET, operation.APIRequest.HTTPMethod, @"user info should be a GET request");
+    XCTAssertEqualObjects(BoxAPIHTTPMethodGET, operation.APIRequest.HTTPMethod, @"user info should be a GET request");
 }
 
 // @see developers.box.com/docs/
@@ -53,7 +53,7 @@
     
     NSString *expectedURLString = [NSString stringWithFormat:@"%@/%@/%@/%@", APIBaseURL, APIVersion, USERS_RESOURCE, userID];
     
-    STAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"user info URL should match docs");
+    XCTAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"user info URL should match docs");
 }
 
 - (void)testThatUserInfoIncludesQueryStringParametersFromRequestBuilder
@@ -62,7 +62,7 @@
     BoxUsersRequestBuilder *builder = [[BoxUsersRequestBuilder alloc] initWithQueryStringParameters:queryParametersDictionary];
     BoxAPIJSONOperation *operation = [usersManager userInfoWithID:userID requestBuilder:builder success:nil failure:nil];
     
-    STAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
+    XCTAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
 }
 
 // GET request should have no body
@@ -72,7 +72,7 @@
     builder.name = @"foobar";
     BoxAPIJSONOperation *operation = [usersManager userInfoWithID:userID requestBuilder:builder success:nil failure:nil];
     
-    STAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
+    XCTAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
 }
 
 - (void)testThatUserInfoWrapsSuccessBlockInJSONSuccessBlockAndSetsItOnTheOperation
@@ -86,14 +86,14 @@
     
     operation.success(nil, nil, nil);
     
-    STAssertTrue(blockCalled, @"User block should be called when the operation's success block is called");
+    XCTAssertTrue(blockCalled, @"User block should be called when the operation's success block is called");
 }
 
 - (void)testThatUserInfoSuccessBlockIsPassedABoxUser
 {
     BoxUserBlock successBlock = ^(BoxUser *user)
     {
-        STAssertTrue([user isMemberOfClass:[BoxUser class]], @"success block should be passed a BoxUser");
+        XCTAssertTrue([user isMemberOfClass:[BoxUser class]], @"success block should be passed a BoxUser");
     };
     BoxAPIJSONOperation *operation = [usersManager userInfoWithID:userID requestBuilder:nil success:successBlock failure:nil];
     
@@ -111,7 +111,7 @@
     
     operation.failure(nil, nil, nil, nil);
     
-    STAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
+    XCTAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
 }
 
 - (void)testThatUserInfoEnqueuesOperationInQueueManager
@@ -127,7 +127,7 @@
 - (void)testThatUserInfoPassesOAuth2SessionToOperation
 {
     BoxAPIJSONOperation *operation = [usersManager userInfoWithID:userID requestBuilder:nil success:nil failure:nil];
-    STAssertEquals(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the users manager");
+    XCTAssertEqual(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the users manager");
 }
 
 #pragma mark - User Infos Tests
@@ -136,7 +136,7 @@
 {
     BoxAPIJSONOperation *operation = [usersManager userInfos:nil success:nil failure:nil];
     
-    STAssertEqualObjects(BoxAPIHTTPMethodGET, operation.APIRequest.HTTPMethod, @"user info should be a GET request");
+    XCTAssertEqualObjects(BoxAPIHTTPMethodGET, operation.APIRequest.HTTPMethod, @"user info should be a GET request");
 }
 
 // @see developers.box.com/docs/
@@ -146,7 +146,7 @@
     
     NSString *expectedURLString = [NSString stringWithFormat:@"%@/%@/%@", APIBaseURL, APIVersion, USERS_RESOURCE];
     
-    STAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"user info URL should match docs");
+    XCTAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"user info URL should match docs");
 }
 
 - (void)testThatUserInfosIncludesQueryStringParametersFromRequestBuilder
@@ -155,7 +155,7 @@
     BoxUsersRequestBuilder *builder = [[BoxUsersRequestBuilder alloc] initWithQueryStringParameters:queryParametersDictionary];
     BoxAPIJSONOperation *operation = [usersManager userInfos:builder success:nil failure:nil];
     
-    STAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
+    XCTAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
 }
 
 // GET request should have no body
@@ -165,7 +165,7 @@
     builder.name = @"foobar";
     BoxAPIJSONOperation *operation = [usersManager userInfos:builder success:nil failure:nil];
     
-    STAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
+    XCTAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
 }
 
 - (void)testThatUserInfosWrapsSuccessBlockInJSONSuccessBlockAndSetsItOnTheOperation
@@ -179,14 +179,14 @@
     
     operation.success(nil, nil, nil);
     
-    STAssertTrue(blockCalled, @"User block should be called when the operation's success block is called");
+    XCTAssertTrue(blockCalled, @"User block should be called when the operation's success block is called");
 }
 
 - (void)testThatUserInfosSuccessBlockIsPassedABoxCollection
 {
     BoxCollectionBlock successBlock = ^(BoxCollection *collection)
     {
-        STAssertTrue([collection isMemberOfClass:[BoxCollection class]], @"success block should be passed a BoxCollection");
+        XCTAssertTrue([collection isMemberOfClass:[BoxCollection class]], @"success block should be passed a BoxCollection");
     };
     BoxAPIJSONOperation *operation = [usersManager userInfos:nil success:successBlock failure:nil];
     
@@ -204,7 +204,7 @@
     
     operation.failure(nil, nil, nil, nil);
     
-    STAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
+    XCTAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
 }
 
 - (void)testThatUserInfosEnqueuesOperationInQueueManager
@@ -220,7 +220,7 @@
 - (void)testThatUserInfosPassesOAuth2SessionToOperation
 {
     BoxAPIJSONOperation *operation = [usersManager userInfos:nil success:nil failure:nil];
-    STAssertEquals(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the users manager");
+    XCTAssertEqual(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the users manager");
 }
 
 
@@ -230,7 +230,7 @@
 {
     BoxAPIJSONOperation *operation = [usersManager createUserWithRequestBuilder:nil success:nil failure:nil];
     
-    STAssertEqualObjects(BoxAPIHTTPMethodPOST, operation.APIRequest.HTTPMethod, @"create user should be a POST request");
+    XCTAssertEqualObjects(BoxAPIHTTPMethodPOST, operation.APIRequest.HTTPMethod, @"create user should be a POST request");
 }
 
 // @see developers.box.com/docs/
@@ -240,7 +240,7 @@
     
     NSString *expectedURLString = [NSString stringWithFormat:@"%@/%@/%@", APIBaseURL, APIVersion, USERS_RESOURCE];
     
-    STAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"create user URL should match docs");
+    XCTAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"create user URL should match docs");
 }
 
 - (void)testThatCreateUserIncludesQueryStringParametersFromRequestBuilder
@@ -249,7 +249,7 @@
     BoxUsersRequestBuilder *builder = [[BoxUsersRequestBuilder alloc] initWithQueryStringParameters:queryParametersDictionary];
     BoxAPIJSONOperation *operation = [usersManager createUserWithRequestBuilder:builder success:nil failure:nil];
     
-    STAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
+    XCTAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
 }
 
 - (void)testThatCreateUserDoesIncludeBodyDictionaryFromRequestBuilder
@@ -260,7 +260,7 @@
     
     NSData *expectedData = [NSJSONSerialization dataWithJSONObject:builder.bodyParameters options:0 error:nil];
     
-    STAssertEqualObjects(expectedData, operation.APIRequest.HTTPBody, @"body parameters from builder should be included with the request");
+    XCTAssertEqualObjects(expectedData, operation.APIRequest.HTTPBody, @"body parameters from builder should be included with the request");
 }
 
 - (void)testThatCreateUserWrapsSuccessBlockInJSONSuccessBlockAndSetsItOnTheOperation
@@ -274,14 +274,14 @@
     
     operation.success(nil, nil, nil);
     
-    STAssertTrue(blockCalled, @"User block should be called when the operation's success block is called");
+    XCTAssertTrue(blockCalled, @"User block should be called when the operation's success block is called");
 }
 
 - (void)testThatCreateUserSuccessBlockIsPassedABoxUser
 {
     BoxUserBlock successBlock = ^(BoxUser *user)
     {
-        STAssertTrue([user isMemberOfClass:[BoxUser class]], @"success block should be passed a BoxUser");
+        XCTAssertTrue([user isMemberOfClass:[BoxUser class]], @"success block should be passed a BoxUser");
     };
     BoxAPIJSONOperation *operation = [usersManager createUserWithRequestBuilder:nil success:successBlock failure:nil];
     
@@ -299,7 +299,7 @@
     
     operation.failure(nil, nil, nil, nil);
     
-    STAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
+    XCTAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
 }
 
 - (void)testThatCreateUserEnqueuesOperationInQueueManager
@@ -315,7 +315,7 @@
 - (void)testThatCreateUserPassesOAuth2SessionToOperation
 {
     BoxAPIJSONOperation *operation = [usersManager createUserWithRequestBuilder:nil success:nil failure:nil];
-    STAssertEquals(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the users manager");
+    XCTAssertEqual(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the users manager");
 }
 
 #pragma mark - Edit User Tests
@@ -324,7 +324,7 @@
 {
     BoxAPIJSONOperation *operation = [usersManager editUserWithID:userID requestBuilder:nil success:nil failure:nil];
     
-    STAssertEqualObjects(BoxAPIHTTPMethodPUT, operation.APIRequest.HTTPMethod, @"edit user should be a PUT request");
+    XCTAssertEqualObjects(BoxAPIHTTPMethodPUT, operation.APIRequest.HTTPMethod, @"edit user should be a PUT request");
 }
 
 // @see developers.box.com/docs/
@@ -334,7 +334,7 @@
     
     NSString *expectedURLString = [NSString stringWithFormat:@"%@/%@/%@/%@", APIBaseURL, APIVersion, USERS_RESOURCE, userID];
     
-    STAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"edit user URL should match docs");
+    XCTAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"edit user URL should match docs");
 }
 
 - (void)testThatEditUserIncludesQueryStringParametersFromRequestBuilder
@@ -343,7 +343,7 @@
     BoxUsersRequestBuilder *builder = [[BoxUsersRequestBuilder alloc] initWithQueryStringParameters:queryParametersDictionary];
     BoxAPIJSONOperation *operation = [usersManager editUserWithID:userID requestBuilder:builder success:nil failure:nil];
     
-    STAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
+    XCTAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
 }
 
 - (void)testThatEditUserDoesIncludeBodyDictionaryFromRequestBuilder
@@ -354,7 +354,7 @@
     
     NSData *expectedData = [NSJSONSerialization dataWithJSONObject:builder.bodyParameters options:0 error:nil];
     
-    STAssertEqualObjects(expectedData, operation.APIRequest.HTTPBody, @"body parameters from builder should be included with the request");
+    XCTAssertEqualObjects(expectedData, operation.APIRequest.HTTPBody, @"body parameters from builder should be included with the request");
 }
 
 - (void)testThatEditUserWrapsSuccessBlockInJSONSuccessBlockAndSetsItOnTheOperation
@@ -368,14 +368,14 @@
     
     operation.success(nil, nil, nil);
     
-    STAssertTrue(blockCalled, @"User block should be called when the operation's success block is called");
+    XCTAssertTrue(blockCalled, @"User block should be called when the operation's success block is called");
 }
 
 - (void)testThatEditUserSuccessBlockIsPassedABoxUser
 {
     BoxUserBlock successBlock = ^(BoxUser *user)
     {
-        STAssertTrue([user isMemberOfClass:[BoxUser class]], @"success block should be passed a BoxUser");
+        XCTAssertTrue([user isMemberOfClass:[BoxUser class]], @"success block should be passed a BoxUser");
     };
     BoxAPIJSONOperation *operation = [usersManager editUserWithID:userID requestBuilder:nil success:successBlock failure:nil];
     
@@ -393,7 +393,7 @@
     
     operation.failure(nil, nil, nil, nil);
     
-    STAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
+    XCTAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
 }
 
 - (void)testThatEditUserEnqueuesOperationInQueueManager
@@ -409,7 +409,7 @@
 - (void)testThatEditUserPassesOAuth2SessionToOperation
 {
     BoxAPIJSONOperation *operation = [usersManager editUserWithID:userID requestBuilder:nil success:nil failure:nil];
-    STAssertEquals(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the users manager");
+    XCTAssertEqual(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the users manager");
 }
 
 #pragma mark - Delete User Tests
@@ -418,7 +418,7 @@
 {
     BoxAPIJSONOperation *operation = [usersManager deleteUserWithID:userID requestBuilder:nil success:nil failure:nil];
     
-    STAssertEqualObjects(BoxAPIHTTPMethodDELETE, operation.APIRequest.HTTPMethod, @"delete user should be a DELETE request");
+    XCTAssertEqualObjects(BoxAPIHTTPMethodDELETE, operation.APIRequest.HTTPMethod, @"delete user should be a DELETE request");
 }
 
 // @see developers.box.com/docs/
@@ -428,7 +428,7 @@
     
     NSString *expectedURLString = [NSString stringWithFormat:@"%@/%@/%@/%@", APIBaseURL, APIVersion, USERS_RESOURCE, userID];
     
-    STAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"delete user URL should match docs");
+    XCTAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"delete user URL should match docs");
 }
 
 - (void)testThatDeleteUserIncludesQueryStringParametersFromRequestBuilder
@@ -437,7 +437,7 @@
     BoxUsersRequestBuilder *builder = [[BoxUsersRequestBuilder alloc] initWithQueryStringParameters:queryParametersDictionary];
     BoxAPIJSONOperation *operation = [usersManager deleteUserWithID:userID requestBuilder:builder success:nil failure:nil];
     
-    STAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
+    XCTAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
 }
 
 - (void)testThatDeleteUserDoesNotIncludeBodyDictionaryFromRequestBuilder
@@ -446,7 +446,7 @@
     builder.name = @"foobar";
     BoxAPIJSONOperation *operation = [usersManager deleteUserWithID:userID requestBuilder:builder success:nil failure:nil];
     
-    STAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
+    XCTAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
 }
 
 - (void)testThatDeleteUserWrapsSuccessBlockInJSONSuccessBlockAndSetsItOnTheOperation
@@ -460,7 +460,7 @@
     
     operation.success(nil, nil, nil);
     
-    STAssertTrue(blockCalled, @"User block should be called when the operation's success block is called");
+    XCTAssertTrue(blockCalled, @"User block should be called when the operation's success block is called");
 }
 
 - (void)testThatDeleteUserSuccessBlockIsPassedANSStringuserID
@@ -468,7 +468,7 @@
     NSString *const expecteduserID = userID;
     BoxSuccessfulDeleteBlock successBlock = ^(NSString *receiveduserID)
     {
-        STAssertEqualObjects(expecteduserID, receiveduserID, @"success block should recieve user id of deleted user");
+        XCTAssertEqualObjects(expecteduserID, receiveduserID, @"success block should recieve user id of deleted user");
     };
     BoxAPIJSONOperation *operation = [usersManager deleteUserWithID:userID requestBuilder:nil success:successBlock failure:nil];
     
@@ -486,7 +486,7 @@
     
     operation.failure(nil, nil, nil, nil);
     
-    STAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
+    XCTAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
 }
 
 - (void)testThatDeleteUserEnqueuesOperationInQueueManager
@@ -502,7 +502,7 @@
 - (void)testThatDeleteUserPassesOAuth2SessionToOperation
 {
     BoxAPIJSONOperation *operation = [usersManager deleteUserWithID:userID requestBuilder:nil success:nil failure:nil];
-    STAssertEquals(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the users manager");
+    XCTAssertEqual(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the users manager");
 }
 
 @end

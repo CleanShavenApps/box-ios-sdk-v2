@@ -49,7 +49,7 @@
 {
     BoxAPIJSONOperation *operation = [filesManager fileInfoWithID:fileID requestBuilder:nil success:nil failure:nil];
 
-    STAssertEqualObjects(BoxAPIHTTPMethodGET, operation.APIRequest.HTTPMethod, @"file info should be a GET request");
+    XCTAssertEqualObjects(BoxAPIHTTPMethodGET, operation.APIRequest.HTTPMethod, @"file info should be a GET request");
 }
 
 // @see developers.box.com/docs/
@@ -59,7 +59,7 @@
 
     NSString *expectedURLString = [NSString stringWithFormat:@"%@/%@/%@/%@", APIBaseURL, APIVersion, FILES_RESOURCE, fileID];
 
-    STAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"file info URL should match docs");
+    XCTAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"file info URL should match docs");
 }
 
 - (void)testThatFileInfoIncludesQueryStringParametersFromRequestBuilder
@@ -68,7 +68,7 @@
     BoxFilesRequestBuilder *builder = [[BoxFilesRequestBuilder alloc] initWithQueryStringParameters:queryParametersDictionary];
     BoxAPIJSONOperation *operation = [filesManager fileInfoWithID:fileID requestBuilder:builder success:nil failure:nil];
 
-    STAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
+    XCTAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
 }
 
 - (void)testThatFileInfoDoesNotIncludeBodyDictionaryFromRequestBuilder
@@ -77,7 +77,7 @@
     builder.name = @"foobar";
     BoxAPIJSONOperation *operation = [filesManager fileInfoWithID:fileID requestBuilder:builder success:nil failure:nil];
 
-    STAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
+    XCTAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
 }
 
 - (void)testThatFileInfoWrapsSuccessBlockInJSONSuccessBlockAndSetsItOnTheOperation
@@ -91,14 +91,14 @@
 
     operation.success(nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"File block should be called when the operation's success block is called");
+    XCTAssertTrue(blockCalled, @"File block should be called when the operation's success block is called");
 }
 
 - (void)testThatFileInfoSuccessBlockIsPassedABoxFile
 {
     BoxFileBlock successBlock = ^(BoxFile *file)
     {
-        STAssertTrue([file class] == [BoxFile class], @"success block should be passed a BoxFile");
+        XCTAssertTrue([file class] == [BoxFile class], @"success block should be passed a BoxFile");
     };
     BoxAPIJSONOperation *operation = [filesManager fileInfoWithID:fileID requestBuilder:nil success:successBlock failure:nil];
 
@@ -116,7 +116,7 @@
 
     operation.failure(nil, nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
+    XCTAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
 }
 
 - (void)testThatFileInfoEnqueuesOperationInQueueManager
@@ -132,7 +132,7 @@
 - (void)testThatFileInfoPassesOAuth2SessionToOperation
 {
     BoxAPIJSONOperation *operation = [filesManager fileInfoWithID:fileID requestBuilder:nil success:nil failure:nil];
-    STAssertEquals(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
+    XCTAssertEqual(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
 }
 
 #pragma mark - Edit File Tests
@@ -141,7 +141,7 @@
 {
     BoxAPIJSONOperation *operation = [filesManager editFileWithID:fileID requestBuilder:nil success:nil failure:nil];
 
-    STAssertEqualObjects(BoxAPIHTTPMethodPUT, operation.APIRequest.HTTPMethod, @"file edit should be a PUT request");
+    XCTAssertEqualObjects(BoxAPIHTTPMethodPUT, operation.APIRequest.HTTPMethod, @"file edit should be a PUT request");
 }
 
 // @see developers.box.com/docs/
@@ -151,7 +151,7 @@
 
     NSString *expectedURLString = [NSString stringWithFormat:@"%@/%@/%@/%@", APIBaseURL, APIVersion, FILES_RESOURCE, fileID];
 
-    STAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"file edit URL should match docs");
+    XCTAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"file edit URL should match docs");
 }
 
 - (void)testThatEditFileIncludesQueryStringParametersFromRequestBuilder
@@ -160,7 +160,7 @@
     BoxFilesRequestBuilder *builder = [[BoxFilesRequestBuilder alloc] initWithQueryStringParameters:queryParametersDictionary];
     BoxAPIJSONOperation *operation = [filesManager editFileWithID:fileID requestBuilder:builder success:nil failure:nil];
 
-    STAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
+    XCTAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
 }
 
 - (void)testThatEditFileDoesIncludeBodyDictionaryFromRequestBuilder
@@ -171,7 +171,7 @@
 
     NSData *expectedData = [NSJSONSerialization dataWithJSONObject:builder.bodyParameters options:0 error:nil];
 
-    STAssertEqualObjects(expectedData, operation.APIRequest.HTTPBody, @"body parameters from builder should be included with the request");
+    XCTAssertEqualObjects(expectedData, operation.APIRequest.HTTPBody, @"body parameters from builder should be included with the request");
 }
 
 - (void)testThatEditFileWrapsSuccessBlockInJSONSuccessBlockAndSetsItOnTheOperation
@@ -185,14 +185,14 @@
 
     operation.success(nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"File block should be called when the operation's success block is called");
+    XCTAssertTrue(blockCalled, @"File block should be called when the operation's success block is called");
 }
 
 - (void)testThatEditFileSuccessBlockIsPassedABoxFile
 {
     BoxFileBlock successBlock = ^(BoxFile *file)
     {
-        STAssertTrue([file class] == [BoxFile class], @"success block should be passed a BoxFile");
+        XCTAssertTrue([file class] == [BoxFile class], @"success block should be passed a BoxFile");
     };
     BoxAPIJSONOperation *operation = [filesManager editFileWithID:fileID requestBuilder:nil success:successBlock failure:nil];
 
@@ -210,7 +210,7 @@
 
     operation.failure(nil, nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
+    XCTAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
 }
 
 - (void)testThatEditFileEnqueuesOperationInQueueManager
@@ -226,7 +226,7 @@
 - (void)testThatEditFilePassesOAuth2SessionToOperation
 {
     BoxAPIJSONOperation *operation = [filesManager editFileWithID:fileID requestBuilder:nil success:nil failure:nil];
-    STAssertEquals(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
+    XCTAssertEqual(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
 }
 
 #pragma mark - Copy File Tests
@@ -235,7 +235,7 @@
 {
     BoxAPIJSONOperation *operation = [filesManager copyFileWithID:fileID requestBuilder:nil success:nil failure:nil];
 
-    STAssertEqualObjects(BoxAPIHTTPMethodPOST, operation.APIRequest.HTTPMethod, @"file copy should be a POST request");
+    XCTAssertEqualObjects(BoxAPIHTTPMethodPOST, operation.APIRequest.HTTPMethod, @"file copy should be a POST request");
 }
 
 // @see developers.box.com/docs/
@@ -245,7 +245,7 @@
 
     NSString *expectedURLString = [NSString stringWithFormat:@"%@/%@/%@/%@/%@", APIBaseURL, APIVersion, FILES_RESOURCE, fileID, FILES_COPY];
 
-    STAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"file copy URL should match docs");
+    XCTAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"file copy URL should match docs");
 }
 
 - (void)testThatCopyFileIncludesQueryStringParametersFromRequestBuilder
@@ -254,7 +254,7 @@
     BoxFilesRequestBuilder *builder = [[BoxFilesRequestBuilder alloc] initWithQueryStringParameters:queryParametersDictionary];
     BoxAPIJSONOperation *operation = [filesManager copyFileWithID:fileID requestBuilder:builder success:nil failure:nil];
 
-    STAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
+    XCTAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
 }
 
 - (void)testThatCopyFileDoesIncludeBodyDictionaryFromRequestBuilder
@@ -265,7 +265,7 @@
 
     NSData *expectedData = [NSJSONSerialization dataWithJSONObject:builder.bodyParameters options:0 error:nil];
 
-    STAssertEqualObjects(expectedData, operation.APIRequest.HTTPBody, @"body parameters from builder should be included with the request");
+    XCTAssertEqualObjects(expectedData, operation.APIRequest.HTTPBody, @"body parameters from builder should be included with the request");
 }
 
 - (void)testThatCopyFileWrapsSuccessBlockInJSONSuccessBlockAndSetsItOnTheOperation
@@ -279,14 +279,14 @@
 
     operation.success(nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"File block should be called when the operation's success block is called");
+    XCTAssertTrue(blockCalled, @"File block should be called when the operation's success block is called");
 }
 
 - (void)testThatCopyFileSuccessBlockIsPassedABoxFile
 {
     BoxFileBlock successBlock = ^(BoxFile *file)
     {
-        STAssertTrue([file class] == [BoxFile class], @"success block should be passed a BoxFile");
+        XCTAssertTrue([file class] == [BoxFile class], @"success block should be passed a BoxFile");
     };
     BoxAPIJSONOperation *operation = [filesManager copyFileWithID:fileID requestBuilder:nil success:successBlock failure:nil];
 
@@ -304,7 +304,7 @@
 
     operation.failure(nil, nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
+    XCTAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
 }
 
 - (void)testThatCopyFileEnqueuesOperationInQueueManager
@@ -320,7 +320,7 @@
 - (void)testThatCopyFilePassesOAuth2SessionToOperation
 {
     BoxAPIJSONOperation *operation = [filesManager copyFileWithID:fileID requestBuilder:nil success:nil failure:nil];
-    STAssertEquals(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
+    XCTAssertEqual(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
 }
 
 #pragma mark - Delete File Tests
@@ -329,7 +329,7 @@
 {
     BoxAPIJSONOperation *operation = [filesManager deleteFileWithID:fileID requestBuilder:nil success:nil failure:nil];
 
-    STAssertEqualObjects(BoxAPIHTTPMethodDELETE, operation.APIRequest.HTTPMethod, @"file delete should be a DELETE request");
+    XCTAssertEqualObjects(BoxAPIHTTPMethodDELETE, operation.APIRequest.HTTPMethod, @"file delete should be a DELETE request");
 }
 
 // @see developers.box.com/docs/
@@ -339,7 +339,7 @@
 
     NSString *expectedURLString = [NSString stringWithFormat:@"%@/%@/%@/%@", APIBaseURL, APIVersion, FILES_RESOURCE, fileID];
 
-    STAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"file delete URL should match docs");
+    XCTAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"file delete URL should match docs");
 }
 
 - (void)testThatDeleteFileIncludesQueryStringParametersFromRequestBuilder
@@ -348,7 +348,7 @@
     BoxFilesRequestBuilder *builder = [[BoxFilesRequestBuilder alloc] initWithQueryStringParameters:queryParametersDictionary];
     BoxAPIJSONOperation *operation = [filesManager deleteFileWithID:fileID requestBuilder:builder success:nil failure:nil];
 
-    STAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
+    XCTAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
 }
 
 - (void)testThatDeleteFileDoesNotIncludeBodyDictionaryFromRequestBuilder
@@ -357,7 +357,7 @@
     builder.name = @"foobar";
     BoxAPIJSONOperation *operation = [filesManager deleteFileWithID:fileID requestBuilder:builder success:nil failure:nil];
 
-    STAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
+    XCTAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
 }
 
 - (void)testThatDeleteFileWrapsSuccessBlockInJSONSuccessBlockAndSetsItOnTheOperation
@@ -371,14 +371,14 @@
 
     operation.success(nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"File block should be called when the operation's success block is called");
+    XCTAssertTrue(blockCalled, @"File block should be called when the operation's success block is called");
 }
 
 - (void)testThatDeleteFileSuccessBlockIsPassedAFileID
 {
     BoxSuccessfulDeleteBlock successBlock = ^(NSString *deletedFileID)
     {
-        STAssertEqualObjects(fileID, deletedFileID, @"expected to delete file ID passed to manager");
+        XCTAssertEqualObjects(fileID, deletedFileID, @"expected to delete file ID passed to manager");
     };
     BoxAPIJSONOperation *operation = [filesManager deleteFileWithID:fileID requestBuilder:nil success:successBlock failure:nil];
 
@@ -396,7 +396,7 @@
 
     operation.failure(nil, nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
+    XCTAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
 }
 
 - (void)testThatDeleteFileEnqueuesOperationInQueueManager
@@ -412,7 +412,7 @@
 - (void)testThatDeleteFilePassesOAuth2SessionToOperation
 {
     BoxAPIJSONOperation *operation = [filesManager deleteFileWithID:fileID requestBuilder:nil success:nil failure:nil];
-    STAssertEquals(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
+    XCTAssertEqual(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
 }
 
 #pragma mark - Upload file with NSData
@@ -421,7 +421,7 @@
 {
     BoxAPIMultipartToJSONOperation *operation = [filesManager uploadFileWithData:[NSData data] MIMEType:nil requestBuilder:nil success:nil failure:nil progress:nil];
 
-    STAssertEqualObjects(BoxAPIHTTPMethodPOST, operation.APIRequest.HTTPMethod, @"file upload should be a POST request");
+    XCTAssertEqualObjects(BoxAPIHTTPMethodPOST, operation.APIRequest.HTTPMethod, @"file upload should be a POST request");
 }
 
 // @see developers.box.com/docs/
@@ -431,7 +431,7 @@
 
     NSString *expectedURLString = [NSString stringWithFormat:@"%@/%@/%@/%@", APIBaseUploadURL, APIUploadVersion, FILES_RESOURCE, FILES_CONTENT];
 
-    STAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"file upload URL should match docs");
+    XCTAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"file upload URL should match docs");
 }
 
 - (void)testThatUploadFileWithDataIncludesQueryStringParametersFromRequestBuilder
@@ -440,7 +440,7 @@
     BoxFilesRequestBuilder *builder = [[BoxFilesRequestBuilder alloc] initWithQueryStringParameters:queryParametersDictionary];
     BoxAPIMultipartToJSONOperation *operation = [filesManager uploadFileWithData:[NSData data] MIMEType:nil requestBuilder:builder success:nil failure:nil progress:nil];
 
-    STAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
+    XCTAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
 }
 
 // the HTTP body is encoded as multipart pieces
@@ -450,7 +450,7 @@
     builder.name = @"foobar";
     BoxAPIMultipartToJSONOperation *operation = [filesManager uploadFileWithData:[NSData data] MIMEType:nil requestBuilder:builder success:nil failure:nil progress:nil];
 
-    STAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
+    XCTAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
 }
 
 - (void)testThatUploadFileWithDataWrapsSuccessBlockInJSONSuccessBlockAndSetsItOnTheOperation
@@ -464,14 +464,14 @@
 
     operation.success(nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"File block should be called when the operation's success block is called");
+    XCTAssertTrue(blockCalled, @"File block should be called when the operation's success block is called");
 }
 
 - (void)testThatUploadFileWithDataSuccessBlockIsPassedABoxFile
 {
     BoxFileBlock successBlock = ^(BoxFile *file)
     {
-        STAssertTrue([file class] == [BoxFile class], @"success block should be passed a BoxFile");
+        XCTAssertTrue([file class] == [BoxFile class], @"success block should be passed a BoxFile");
     };
     BoxAPIMultipartToJSONOperation *operation = [filesManager uploadFileWithData:[NSData data] MIMEType:nil requestBuilder:nil success:successBlock failure:nil progress:nil];
 
@@ -489,7 +489,7 @@
 
     operation.failure(nil, nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
+    XCTAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
 }
 
 - (void)testThatUploadFileWithDataEnqueuesOperationInQueueManager
@@ -505,7 +505,7 @@
 - (void)testThatUploadFileWithDataPassesOAuth2SessionToOperation
 {
     BoxAPIMultipartToJSONOperation *operation = [filesManager uploadFileWithData:[NSData data] MIMEType:nil requestBuilder:nil success:nil failure:nil progress:nil];
-    STAssertEquals(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
+    XCTAssertEqual(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
 }
 
 #pragma mark - Upload file with NSInputStream
@@ -514,7 +514,7 @@
 {
     BoxAPIMultipartToJSONOperation *operation = [filesManager uploadFileWithInputStream:[NSInputStream inputStreamWithData:[NSData data]] contentLength:0 MIMEType:nil requestBuilder:nil success:nil failure:nil progress:nil];
 
-    STAssertEqualObjects(BoxAPIHTTPMethodPOST, operation.APIRequest.HTTPMethod, @"file upload should be a POST request");
+    XCTAssertEqualObjects(BoxAPIHTTPMethodPOST, operation.APIRequest.HTTPMethod, @"file upload should be a POST request");
 }
 
 // @see developers.box.com/docs/
@@ -524,7 +524,7 @@
 
     NSString *expectedURLString = [NSString stringWithFormat:@"%@/%@/%@/%@", APIBaseUploadURL, APIUploadVersion, FILES_RESOURCE, FILES_CONTENT];
 
-    STAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"file upload URL should match docs");
+    XCTAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"file upload URL should match docs");
 }
 
 - (void)testThatUploadFileWithInputStreamIncludesQueryStringParametersFromRequestBuilder
@@ -533,7 +533,7 @@
     BoxFilesRequestBuilder *builder = [[BoxFilesRequestBuilder alloc] initWithQueryStringParameters:queryParametersDictionary];
     BoxAPIMultipartToJSONOperation *operation = [filesManager uploadFileWithInputStream:[NSInputStream inputStreamWithData:[NSData data]] contentLength:0 MIMEType:nil requestBuilder:builder success:nil failure:nil progress:nil];
 
-    STAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
+    XCTAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
 }
 
 // the HTTP body is encoded as multipart pieces
@@ -543,7 +543,7 @@
     builder.name = @"foobar";
     BoxAPIMultipartToJSONOperation *operation = [filesManager uploadFileWithInputStream:[NSInputStream inputStreamWithData:[NSData data]] contentLength:0 MIMEType:nil requestBuilder:builder success:nil failure:nil progress:nil];
 
-    STAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
+    XCTAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
 }
 
 - (void)testThatUploadFileWithInputStreamWrapsSuccessBlockInJSONSuccessBlockAndSetsItOnTheOperation
@@ -557,14 +557,14 @@
 
     operation.success(nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"File block should be called when the operation's success block is called");
+    XCTAssertTrue(blockCalled, @"File block should be called when the operation's success block is called");
 }
 
 - (void)testThatUploadFileWithInputStreamSuccessBlockIsPassedABoxFile
 {
     BoxFileBlock successBlock = ^(BoxFile *file)
     {
-        STAssertTrue([file class] == [BoxFile class], @"success block should be passed a BoxFile");
+        XCTAssertTrue([file class] == [BoxFile class], @"success block should be passed a BoxFile");
     };
     BoxAPIMultipartToJSONOperation *operation = [filesManager uploadFileWithInputStream:[NSInputStream inputStreamWithData:[NSData data]] contentLength:0 MIMEType:nil requestBuilder:nil success:successBlock failure:nil progress:nil];
 
@@ -582,7 +582,7 @@
 
     operation.failure(nil, nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
+    XCTAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
 }
 
 - (void)testThatUploadFileWithInputStreamEnqueuesOperationInQueueManager
@@ -599,7 +599,7 @@
 - (void)testThatUploadFileWithInputStreamPassesOAuth2SessionToOperation
 {
     BoxAPIMultipartToJSONOperation *operation = [filesManager uploadFileWithInputStream:[NSInputStream inputStreamWithData:[NSData data]] contentLength:0 MIMEType:nil requestBuilder:nil success:nil failure:nil progress:nil];
-    STAssertEquals(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
+    XCTAssertEqual(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
 }
 
 #pragma mark - Overwrite file with NSData
@@ -608,7 +608,7 @@
 {
     BoxAPIMultipartToJSONOperation *operation = [filesManager overwriteFileWithID:fileID data:[NSData data] MIMEType:nil requestBuilder:nil success:nil failure:nil progress:nil];
 
-    STAssertEqualObjects(BoxAPIHTTPMethodPOST, operation.APIRequest.HTTPMethod, @"file overwrite should be a POST request");
+    XCTAssertEqualObjects(BoxAPIHTTPMethodPOST, operation.APIRequest.HTTPMethod, @"file overwrite should be a POST request");
 }
 
 // @see developers.box.com/docs/
@@ -618,7 +618,7 @@
 
     NSString *expectedURLString = [NSString stringWithFormat:@"%@/%@/%@/%@/%@", APIBaseUploadURL, APIUploadVersion, FILES_RESOURCE, fileID, FILES_CONTENT];
 
-    STAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"file overwrite URL should match docs");
+    XCTAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"file overwrite URL should match docs");
 }
 
 - (void)testThatOverwriteFileWithDataIncludesQueryStringParametersFromRequestBuilder
@@ -627,7 +627,7 @@
     BoxFilesRequestBuilder *builder = [[BoxFilesRequestBuilder alloc] initWithQueryStringParameters:queryParametersDictionary];
     BoxAPIMultipartToJSONOperation *operation = [filesManager overwriteFileWithID:fileID data:[NSData data] MIMEType:nil requestBuilder:builder success:nil failure:nil progress:nil];
 
-    STAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
+    XCTAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
 }
 
 // the HTTP body is encoded as multipart pieces
@@ -637,7 +637,7 @@
     builder.name = @"foobar";
     BoxAPIMultipartToJSONOperation *operation = [filesManager overwriteFileWithID:fileID data:[NSData data] MIMEType:nil requestBuilder:builder success:nil failure:nil progress:nil];
 
-    STAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
+    XCTAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
 }
 
 - (void)testThatOverwriteFileWithDataWrapsSuccessBlockInJSONSuccessBlockAndSetsItOnTheOperation
@@ -651,14 +651,14 @@
 
     operation.success(nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"File block should be called when the operation's success block is called");
+    XCTAssertTrue(blockCalled, @"File block should be called when the operation's success block is called");
 }
 
 - (void)testThatOverwriteFileWithDataSuccessBlockIsPassedABoxFile
 {
     BoxFileBlock successBlock = ^(BoxFile *file)
     {
-        STAssertTrue([file class] == [BoxFile class], @"success block should be passed a BoxFile");
+        XCTAssertTrue([file class] == [BoxFile class], @"success block should be passed a BoxFile");
     };
     BoxAPIMultipartToJSONOperation *operation = [filesManager overwriteFileWithID:fileID data:[NSData data] MIMEType:nil requestBuilder:nil success:successBlock failure:nil progress:nil];
 
@@ -676,7 +676,7 @@
 
     operation.failure(nil, nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
+    XCTAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
 }
 
 - (void)testThatOverwriteFileWithDataEnqueuesOperationInQueueManager
@@ -692,7 +692,7 @@
 - (void)testThatOverwriteFileWithDataPassesOAuth2SessionToOperation
 {
     BoxAPIMultipartToJSONOperation *operation = [filesManager overwriteFileWithID:fileID data:[NSData data] MIMEType:nil requestBuilder:nil success:nil failure:nil progress:nil];
-    STAssertEquals(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
+    XCTAssertEqual(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
 }
 
 #pragma mark - Overwrite file with NSInputStream
@@ -701,7 +701,7 @@
 {
     BoxAPIMultipartToJSONOperation *operation = [filesManager overwriteFileWithID:fileID inputStream:[NSInputStream inputStreamWithData:[NSData data]] contentLength:0 MIMEType:nil requestBuilder:nil success:nil failure:nil progress:nil];
 
-    STAssertEqualObjects(BoxAPIHTTPMethodPOST, operation.APIRequest.HTTPMethod, @"file overwrite should be a POST request");
+    XCTAssertEqualObjects(BoxAPIHTTPMethodPOST, operation.APIRequest.HTTPMethod, @"file overwrite should be a POST request");
 }
 
 // @see developers.box.com/docs/
@@ -711,7 +711,7 @@
 
     NSString *expectedURLString = [NSString stringWithFormat:@"%@/%@/%@/%@/%@", APIBaseUploadURL, APIUploadVersion, FILES_RESOURCE, fileID, FILES_CONTENT];
 
-    STAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"file overwrite URL should match docs");
+    XCTAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"file overwrite URL should match docs");
 }
 
 - (void)testThatOverwriteFileWithInputStreamIncludesQueryStringParametersFromRequestBuilder
@@ -720,7 +720,7 @@
     BoxFilesRequestBuilder *builder = [[BoxFilesRequestBuilder alloc] initWithQueryStringParameters:queryParametersDictionary];
     BoxAPIMultipartToJSONOperation *operation = [filesManager overwriteFileWithID:fileID inputStream:[NSInputStream inputStreamWithData:[NSData data]] contentLength:0 MIMEType:nil requestBuilder:builder success:nil failure:nil progress:nil];
 
-    STAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
+    XCTAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
 }
 
 // the HTTP body is encoded as multipart pieces
@@ -730,7 +730,7 @@
     builder.name = @"foobar";
     BoxAPIMultipartToJSONOperation *operation = [filesManager overwriteFileWithID:fileID inputStream:[NSInputStream inputStreamWithData:[NSData data]] contentLength:0 MIMEType:nil requestBuilder:builder success:nil failure:nil progress:nil];
 
-    STAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
+    XCTAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
 }
 
 - (void)testThatOverwriteFileWithInputStreamWrapsSuccessBlockInJSONSuccessBlockAndSetsItOnTheOperation
@@ -744,14 +744,14 @@
 
     operation.success(nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"File block should be called when the operation's success block is called");
+    XCTAssertTrue(blockCalled, @"File block should be called when the operation's success block is called");
 }
 
 - (void)testThatOverwriteFileWithInputStreamSuccessBlockIsPassedABoxFile
 {
     BoxFileBlock successBlock = ^(BoxFile *file)
     {
-        STAssertTrue([file class] == [BoxFile class], @"success block should be passed a BoxFile");
+        XCTAssertTrue([file class] == [BoxFile class], @"success block should be passed a BoxFile");
     };
     BoxAPIMultipartToJSONOperation *operation = [filesManager overwriteFileWithID:fileID inputStream:[NSInputStream inputStreamWithData:[NSData data]] contentLength:0 MIMEType:nil requestBuilder:nil success:successBlock failure:nil progress:nil];
 
@@ -769,7 +769,7 @@
 
     operation.failure(nil, nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
+    XCTAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
 }
 
 - (void)testThatOverwriteFileWithInputStreamEnqueuesOperationInQueueManager
@@ -786,7 +786,7 @@
 - (void)testThatOverwriteFileWithInputStreamPassesOAuth2SessionToOperation
 {
     BoxAPIMultipartToJSONOperation *operation = [filesManager overwriteFileWithID:fileID inputStream:[NSInputStream inputStreamWithData:[NSData data]] contentLength:0 MIMEType:nil requestBuilder:nil success:nil failure:nil progress:nil];
-    STAssertEquals(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
+    XCTAssertEqual(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
 }
 
 #pragma mark - Download file with NSOutputStream
@@ -795,7 +795,7 @@
 {
     BoxAPIDataOperation *operation = [filesManager downloadFileWithID:fileID outputStream:[NSOutputStream outputStreamToMemory] requestBuilder:nil success:nil failure:nil progress:nil];
 
-    STAssertEqualObjects(BoxAPIHTTPMethodGET, operation.APIRequest.HTTPMethod, @"file download should be a GET request");
+    XCTAssertEqualObjects(BoxAPIHTTPMethodGET, operation.APIRequest.HTTPMethod, @"file download should be a GET request");
 }
 
 // @see developers.box.com/docs/
@@ -805,7 +805,7 @@
 
     NSString *expectedURLString = [NSString stringWithFormat:@"%@/%@/%@/%@/%@", APIBaseURL, APIVersion, FILES_RESOURCE, fileID, FILES_CONTENT];
 
-    STAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"file download URL should match docs");
+    XCTAssertEqualObjects(expectedURLString, operation.APIRequest.URL.absoluteString, @"file download URL should match docs");
 }
 
 - (void)testThatDownloadFileIncludesQueryStringParametersFromRequestBuilder
@@ -814,7 +814,7 @@
     BoxFilesRequestBuilder *builder = [[BoxFilesRequestBuilder alloc] initWithQueryStringParameters:queryParametersDictionary];
     BoxAPIDataOperation *operation = [filesManager downloadFileWithID:fileID outputStream:[NSOutputStream outputStreamToMemory] requestBuilder:builder success:nil failure:nil progress:nil];
 
-    STAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
+    XCTAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from builder should be appended to the URL");
 }
 
 - (void)testThatDownloadFileDoesNotIncludeBodyDictionaryFromRequestBuilder
@@ -823,7 +823,7 @@
     builder.name = @"foobar";
     BoxAPIDataOperation *operation = [filesManager downloadFileWithID:fileID outputStream:[NSOutputStream outputStreamToMemory] requestBuilder:builder success:nil failure:nil progress:nil];
 
-    STAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
+    XCTAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
 }
 
 - (void)testThatDownloadFileWrapsSuccessBlockInJSONSuccessBlockAndSetsItOnTheOperation
@@ -837,7 +837,7 @@
 
     operation.successBlock(nil, 0l);
 
-    STAssertTrue(blockCalled, @"File block should be called when the operation's success block is called");
+    XCTAssertTrue(blockCalled, @"File block should be called when the operation's success block is called");
 }
 
 - (void)testThatDownloadFileSetsFailureBlockOnTheOperation
@@ -851,7 +851,7 @@
 
     operation.failureBlock(nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
+    XCTAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
 }
 
 - (void)testThatDownloadFileEnqueuesOperationInQueueManager
@@ -868,7 +868,7 @@
 - (void)testThatDownloadFilePassesOAuth2SessionToOperation
 {
     BoxAPIDataOperation *operation = [filesManager downloadFileWithID:fileID outputStream:[NSOutputStream outputStreamToMemory] requestBuilder:nil success:nil failure:nil progress:nil];
-    STAssertEquals(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
+    XCTAssertEqual(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
 }
 
 #pragma mark - Download thumbnail with NSOutputStream
@@ -877,7 +877,7 @@
 {
     BoxAPIDataOperation *operation = [filesManager thumbnailForFileWithID:fileID outputStream:[NSOutputStream outputStreamToMemory] thumbnailSize:BoxThumbnailSize256 success:nil failure:nil];
 
-    STAssertEqualObjects(BoxAPIHTTPMethodGET, operation.APIRequest.HTTPMethod, @"file thumbnail should be a GET request");
+    XCTAssertEqualObjects(BoxAPIHTTPMethodGET, operation.APIRequest.HTTPMethod, @"file thumbnail should be a GET request");
 }
 
 // @see developers.box.com/docs/
@@ -889,7 +889,7 @@
 
     NSString *urlWithoutQueryParameters = [[operation.APIRequest.URL.absoluteString componentsSeparatedByString:@"?"] objectAtIndex:0];
 
-    STAssertEqualObjects(expectedURLString, urlWithoutQueryParameters, @"file download URL should match docs");
+    XCTAssertEqualObjects(expectedURLString, urlWithoutQueryParameters, @"file download URL should match docs");
 }
 
 - (void)testThatDownloadFileThumbnailIncludesQueryStringParametersFromThumbnailSize
@@ -897,14 +897,14 @@
     NSDictionary *const queryParametersDictionary = @{@"min_width" : @"256", @"min_height" : @"256"};
     BoxAPIDataOperation *operation = [filesManager thumbnailForFileWithID:fileID outputStream:[NSOutputStream outputStreamToMemory] thumbnailSize:BoxThumbnailSize256 success:nil failure:nil];
 
-    STAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from thumbnail size should be appended to the URL");
+    XCTAssertEqualObjects(queryParametersDictionary, operation.APIRequest.URL.box_queryDictionary, @"query parameters from thumbnail size should be appended to the URL");
 }
 
 - (void)testThatDownloadFileDoesNotIncludeBodyDictionary
 {
     BoxAPIDataOperation *operation = [filesManager thumbnailForFileWithID:fileID outputStream:[NSOutputStream outputStreamToMemory] thumbnailSize:BoxThumbnailSize256 success:nil failure:nil];
 
-    STAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
+    XCTAssertNil(operation.APIRequest.HTTPBody, @"body parameters from builder should not be included with the request");
 }
 
 - (void)testThatDownloadFileThumbnailWrapsSuccessBlockInJSONSuccessBlockAndSetsItOnTheOperation
@@ -918,7 +918,7 @@
 
     operation.successBlock(nil, 0l);
 
-    STAssertTrue(blockCalled, @"File block should be called when the operation's success block is called");
+    XCTAssertTrue(blockCalled, @"File block should be called when the operation's success block is called");
 }
 
 - (void)testThatDownloadFileThumbnailSetsFailureBlockOnTheOperation
@@ -932,7 +932,7 @@
 
     operation.failureBlock(nil, nil, nil);
 
-    STAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
+    XCTAssertTrue(blockCalled, @"Failure block should be called when the operation's failure block is called");
 }
 
 - (void)testThatDownloadFileThumbnailEnqueuesOperationInQueueManager
@@ -949,7 +949,7 @@
 - (void)testThatDownloadFileThumnbailPassesOAuth2SessionToOperation
 {
     BoxAPIDataOperation *operation = [filesManager thumbnailForFileWithID:fileID outputStream:[NSOutputStream outputStreamToMemory] thumbnailSize:BoxThumbnailSize256 success:nil failure:nil];
-    STAssertEquals(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
+    XCTAssertEqual(OAuth2Session, operation.OAuth2Session, @"operation should have the same OAuth2Session as the folders manager");
 }
 
 @end

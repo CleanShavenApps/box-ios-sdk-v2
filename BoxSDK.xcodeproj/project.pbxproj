@@ -149,7 +149,6 @@
 		E44A95D616E221B400356ADA /* BoxLog.h in Headers */ = {isa = PBXBuildFile; fileRef = E4C3289716D6F447002DC905 /* BoxLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E470433F16D41DC500FED29A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E470433E16D41DC500FED29A /* Foundation.framework */; };
 		E470434616D41DC500FED29A /* BoxSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = E470434516D41DC500FED29A /* BoxSDK.m */; };
-		E470434E16D41DC500FED29A /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E470434D16D41DC500FED29A /* SenTestingKit.framework */; };
 		E470435116D41DC500FED29A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E470433E16D41DC500FED29A /* Foundation.framework */; };
 		E470435416D41DC500FED29A /* libBoxSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E470433B16D41DC500FED29A /* libBoxSDK.a */; };
 		E470435A16D41DC500FED29A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E470435816D41DC500FED29A /* InfoPlist.strings */; };
@@ -273,7 +272,6 @@
 		F05F80FC17B40850001182FB /* BoxFilesResourceManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FADA19172CE2DF0052AD11 /* BoxFilesResourceManagerTests.m */; };
 		F05F80FD17B40850001182FB /* BoxFoldersResourceManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FADA1B172CE2DF0052AD11 /* BoxFoldersResourceManagerTests.m */; };
 		F0E5E2F717A78AEF00153646 /* BoxCocoaSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = F0E5E2F617A78AEF00153646 /* BoxCocoaSDK.m */; };
-		F0E5E2FE17A78AEF00153646 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E470434D16D41DC500FED29A /* SenTestingKit.framework */; };
 		F0E5E30217A78AEF00153646 /* BoxCocoaSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0E5E2E717A78AEF00153646 /* BoxCocoaSDK.framework */; };
 		F0E5E30817A78AEF00153646 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F0E5E30617A78AEF00153646 /* InfoPlist.strings */; };
 		F0E5E30B17A78AEF00153646 /* BoxCocoaSDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F0E5E30A17A78AEF00153646 /* BoxCocoaSDKTests.m */; };
@@ -533,8 +531,7 @@
 		E470434216D41DC500FED29A /* BoxSDK-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BoxSDK-Prefix.pch"; sourceTree = "<group>"; };
 		E470434316D41DC500FED29A /* BoxSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BoxSDK.h; sourceTree = "<group>"; };
 		E470434516D41DC500FED29A /* BoxSDK.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BoxSDK.m; sourceTree = "<group>"; };
-		E470434C16D41DC500FED29A /* BoxSDKTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BoxSDKTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E470434D16D41DC500FED29A /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		E470434C16D41DC500FED29A /* BoxSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BoxSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E470435716D41DC500FED29A /* BoxSDKTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BoxSDKTests-Info.plist"; sourceTree = "<group>"; };
 		E470435916D41DC500FED29A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E470435B16D41DC500FED29A /* BoxSDKTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BoxSDKTests.h; sourceTree = "<group>"; };
@@ -688,7 +685,6 @@
 				E4081E4C175EF18800F6D6AA /* QuartzCore.framework in Frameworks */,
 				E4FADA2C172CE3A60052AD11 /* UIKit.framework in Frameworks */,
 				E4D5085816E80A2A001CE50A /* libOCMock.a in Frameworks */,
-				E470434E16D41DC500FED29A /* SenTestingKit.framework in Frameworks */,
 				E470435116D41DC500FED29A /* Foundation.framework in Frameworks */,
 				E470435416D41DC500FED29A /* libBoxSDK.a in Frameworks */,
 			);
@@ -710,7 +706,6 @@
 			files = (
 				F05F80E617B3FD46001182FB /* OCMock.framework in Frameworks */,
 				F05F80E417B3FD2A001182FB /* Security.framework in Frameworks */,
-				F0E5E2FE17A78AEF00153646 /* SenTestingKit.framework in Frameworks */,
 				F0E5E30217A78AEF00153646 /* BoxCocoaSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -855,7 +850,7 @@
 			isa = PBXGroup;
 			children = (
 				E470433B16D41DC500FED29A /* libBoxSDK.a */,
-				E470434C16D41DC500FED29A /* BoxSDKTests.octest */,
+				E470434C16D41DC500FED29A /* BoxSDKTests.xctest */,
 				E4081D8D1758728900F6D6AA /* BoxSDKResources.bundle */,
 				F0E5E2E717A78AEF00153646 /* BoxCocoaSDK.framework */,
 				F0E5E2FD17A78AEF00153646 /* BoxCocoaSDKTests.octest */,
@@ -868,7 +863,6 @@
 			children = (
 				F05F80E817B3FD9C001182FB /* OSX */,
 				F05F80E717B3FD8C001182FB /* iOS */,
-				E470434D16D41DC500FED29A /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1426,8 +1420,8 @@
 			);
 			name = BoxSDKTests;
 			productName = BoxSDKTests;
-			productReference = E470434C16D41DC500FED29A /* BoxSDKTests.octest */;
-			productType = "com.apple.product-type.bundle.ocunit-test";
+			productReference = E470434C16D41DC500FED29A /* BoxSDKTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		F0E5E2E617A78AEF00153646 /* BoxCocoaSDK */ = {
 			isa = PBXNativeTarget;
@@ -1472,6 +1466,7 @@
 		E470433316D41DC500FED29A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastTestingUpgradeCheck = 0640;
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = Box;
 				TargetAttributes = {
@@ -1974,6 +1969,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BoxSDK/BoxSDK-Prefix.pch";
@@ -1989,8 +1985,6 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_AFTER_BUILD = YES;
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -2000,6 +1994,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BoxSDK/BoxSDK-Prefix.pch";
@@ -2015,8 +2010,6 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_AFTER_BUILD = YES;
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};

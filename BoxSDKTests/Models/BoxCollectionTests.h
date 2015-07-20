@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 Box. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
 #import "BoxCollection.h"
 
-@interface BoxCollectionTests : SenTestCase
+@interface BoxCollectionTests : XCTestCase
 {
     NSDictionary *JSONDictionary;
     BoxCollection *collection;

@@ -24,7 +24,7 @@
 
     [OAuth2 addAuthorizationParametersToRequest:request];
 
-    STAssertEqualObjects(expectedAuthorizationHeaderValue, [request valueForHTTPHeaderField:@"Authorization"], @"Authorization header should include Bearer token");
+    XCTAssertEqualObjects(expectedAuthorizationHeaderValue, [request valueForHTTPHeaderField:@"Authorization"], @"Authorization header should include Bearer token");
 }
 
 - (void)testThatOAuth2SessionOnlyAddsOneHeaderToRequest
@@ -39,7 +39,7 @@
     [OAuth2 addAuthorizationParametersToRequest:request];
 
     NSDictionary *actualHeaders = [request allHTTPHeaderFields];
-    STAssertEquals((NSUInteger)1U, actualHeaders.count, @"OAuth2 should add only one header to request");
+    XCTAssertEqual((NSUInteger)1U, actualHeaders.count, @"OAuth2 should add only one header to request");
 }
 
 @end
